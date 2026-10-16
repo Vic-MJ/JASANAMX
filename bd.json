@@ -1,0 +1,40 @@
+[
+    {
+        "Usuario": {
+        "id_usuario": 1,
+        "nombre": "Juan",
+        "apellido_p": "Perez",
+        "apellido_m": "Gomez",
+        "nombre_usuario": "jperez",
+        "contrasena": "123456",
+        "telefonos": ["555-1234"],
+        "cargo": "Administrador"
+        },
+        "Valvulas": {
+            "id_valvula": 101,
+            "ubicacion": "Sector A",
+            "capacidad_tanque": 500.0,
+            "capacidad_tanque_actual": 250.0,
+            "descripcion": "Válvula principal de entrada",
+            "estado": true
+        },
+        "Horario": {
+            "id_horario": 10,
+            "valvula_id": 101,
+            "usuario_id": 1,
+            "hora_encendido": "08:00:00 AM",
+            "hora_apagado": "06:00:00 PM",
+            "fecha_inicio": ISODate("2025-02-05T08:00:00Z"),
+            "fecha_cierre": ISODate("2025-02-05T09:00:00Z")
+        },
+        "Historial": {
+            "id_historial": 1001,
+            "valvula_id": 101,
+            "usuario_id": 1,
+            "accion": true,
+            "hora": "08:05:00 AM",
+            "fecha": ISODate("2025-02-05T08:00:00Z"),
+            "modo": true
+        }
+    }
+]

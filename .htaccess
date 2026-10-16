@@ -1,0 +1,26 @@
+# ==============================================================================
+# JASANA HOTEL WEAR - CONFIGURACIÓN APACHE / REWRITE
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Definir index.php como archivo índice predeterminado
+    DirectoryIndex index.php
+
+    # 2. Redireccionar solicitudes que contengan /index.php hacia la raíz limpia /
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)index\.php [NC]
+    RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
+
+    # 3. Permitir URLs limpias sin extensión .php (ej. /cycles_plantilla)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+</IfModule>
+
+# Seguridad: Evitar listado de directorios
+Options -Indexes
+
+# Codificación predeterminada
+AddDefaultCharset UTF-8
