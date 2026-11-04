@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/estilos.css">
+    <link rel="preload" as="image" href="assets/imagenes/hero_slide_01.webp" type="image/webp" fetchpriority="high">
     <link rel="icon" type="image/png" href="assets/imagenes/imagotipo.png">
 </head>
 <body class="<?php echo isset($clase_cuerpo) ? htmlspecialchars($clase_cuerpo) : ''; ?>">

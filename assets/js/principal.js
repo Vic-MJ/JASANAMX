@@ -1,4 +1,3 @@
-// Limpieza inmediata de URL para eliminar index.php de la barra de direcciones (local y producción)
 (function limpiarUrlIndex() {
     if (window.location.pathname.endsWith("/index.php") || window.location.pathname === "/index.php") {
         const rutaLimpia = window.location.pathname.replace(/\/index\.php$/, "/") || "/";
@@ -22,10 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("scroll", actualizarEncabezado, { passive: true });
     actualizarEncabezado();
-
-    /* ==========================================================================
-       INDICADOR ACTIVO DEL MENÚ Y SCROLLSPY (SINCRONIZACIÓN DE SECCIONES)
-       ========================================================================== */
     const enlacesNavegacion = document.querySelectorAll(".enlace-menu[data-seccion], .enlace-movil[data-seccion]");
     const esPaginaInicio = document.body.classList.contains("pagina-inicio") || 
                            window.location.pathname === "/" || 
@@ -45,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (esPaginaInicio) {
-        // Secciones principales a monitorear en el orden que aparecen
         const seccionesScroll = [
             { id: "inicio", el: document.getElementById("inicio") },
             { id: "lineas", el: document.getElementById("lineas") },
@@ -64,13 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const alturaVentana = window.innerHeight;
             const scrollTotal = document.documentElement.scrollHeight;
 
-            // Si el usuario llega al final de la página, activar 'contacto'
             if (scrollPos + alturaVentana >= scrollTotal - 50) {
                 activarEnlace("contacto");
                 return;
             }
 
-            // Si está al tope del sitio
             if (scrollPos < 100) {
                 activarEnlace("inicio");
                 return;
@@ -89,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
             activarEnlace(idActivo);
         }
 
-        // Revisar si la URL viene con hash específico (ej. #nosotros, #lineas, #contacto)
         function comprobarHashUrl() {
             const hash = window.location.hash.replace("#", "").toLowerCase();
             if (hash) {
@@ -119,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Al dar clic en un enlace del navbar, mover de inmediato la línea indicadora
         enlacesNavegacion.forEach(function (enlace) {
             enlace.addEventListener("click", function () {
                 const seccion = this.getAttribute("data-seccion");
@@ -135,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     } else {
-        // En cualquier otra página (privacidad.php, cycles, etc.), no marcar 'inicio' como activo
         activarEnlace(null);
     }
 
@@ -184,8 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
             temporizadorSaliente = null;
         }
 
-        // Mantener la diapositiva previa como 'saliente' (sólida y 100% visible en z-index 2)
-        // para que la nueva diapositiva (z-index 3) se desvanezca suavemente encima sin revelar jamás fondo negro.
         diapositivas.forEach(function (d) {
             d.classList.remove("diapositiva--saliente");
         });
@@ -195,17 +182,14 @@ document.addEventListener("DOMContentLoaded", function () {
             diapositivaPrevia.classList.remove("diapositiva--activa");
         }
 
-        // Activar la nueva diapositiva
         diapositivaNueva.classList.add("diapositiva--activa");
 
-        // Actualizar indicadores con reinicio de la barra de progreso
         indicadores.forEach(function (ind, i) {
             ind.classList.toggle("activo", i === nuevoIndice);
         });
 
         indiceActual = nuevoIndice;
 
-        // Tras completarse el crossfade, limpiar la clase saliente
         temporizadorSaliente = setTimeout(function () {
             diapositivas.forEach(function (d) {
                 if (!d.classList.contains("diapositiva--activa")) {
@@ -264,7 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // Soporte gestual táctil (swipe) para dispositivos móviles
         if (deslizadorHero) {
             let toqueInicioX = 0;
             let toqueFinX = 0;
@@ -294,9 +277,6 @@ document.addEventListener("DOMContentLoaded", function () {
         iniciarTemporizador();
     }
 
-    /* ==========================================================================
-       MODAL DE COTIZACIÓN - GESTIÓN MINIMALISTA Y RETOQUES SUTILES
-       ========================================================================== */
     const modalCotizar = document.getElementById("modal-cotizar");
     const botonesAbrirModal = document.querySelectorAll("[data-abrir-modal]");
     const botonesCerrarModal = document.querySelectorAll("[data-cerrar-modal]");
@@ -307,7 +287,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const campoMensaje = document.getElementById("campo-mensaje");
     const textoBotonEnvio = document.getElementById("texto-boton-envio");
 
-    // Micro-retoques sutiles y elegantes por cada línea
     const retoquesLineas = {
         "Signature": {
             nota: "Sastrería de autor y alta personalización para recepción, concierge y directivos.",
@@ -357,15 +336,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const retoque = retoquesLineas[clave];
         if (!retoque || !modalCotizar) return;
 
-        // 1. Tono sutil de acento en contenedor
         modalCotizar.setAttribute("data-linea-activa", clave);
 
-        // 2. Sincronizar select nativo
         if (campoLinea && campoLinea.value !== clave) {
             campoLinea.value = clave;
         }
 
-        // 3. Pestañas tipográficas minimalistas
         tabsLinea.forEach(function (tab) {
             const tabLinea = tab.getAttribute("data-linea");
             const esActiva = (tabLinea === clave);
@@ -373,7 +349,6 @@ document.addEventListener("DOMContentLoaded", function () {
             tab.setAttribute("aria-selected", esActiva ? "true" : "false");
         });
 
-        // 4. Micro-frase contextual elegante
         if (notaLineaSutil) {
             notaLineaSutil.style.opacity = "0";
             setTimeout(function () {
@@ -382,17 +357,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 120);
         }
 
-        // 5. Etiqueta de volumen adaptada sutilmente
         if (etiquetaVolumen) {
             etiquetaVolumen.textContent = retoque.volumen;
         }
 
-        // 6. Placeholder contextual si el usuario no ha escrito
         if (campoMensaje && (!campoMensaje.value || campoMensaje.value.trim() === "")) {
             campoMensaje.placeholder = retoque.placeholder;
         }
 
-        // 7. Texto del botón de acción
         if (textoBotonEnvio) {
             textoBotonEnvio.textContent = retoque.boton;
         }
@@ -415,6 +387,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!modalCotizar) return;
         const lineaElegida = lineaPrevia || (campoLinea ? campoLinea.value : "Signature");
         aplicarRetoquesLinea(lineaElegida);
+        const mensajeExito = document.getElementById("mensaje-exito");
+        const mensajeError = document.getElementById("mensaje-error");
+        if (mensajeExito) mensajeExito.style.display = "none";
+        if (mensajeError) mensajeError.style.display = "none";
         modalCotizar.classList.add("modal--abierto");
         modalCotizar.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
@@ -430,11 +406,12 @@ document.addEventListener("DOMContentLoaded", function () {
         modalCotizar.classList.remove("modal--abierto");
         modalCotizar.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
+        const mensajeExito = document.getElementById("mensaje-exito");
+        const mensajeError = document.getElementById("mensaje-error");
+        if (mensajeExito) mensajeExito.style.display = "none";
+        if (mensajeError) mensajeError.style.display = "none";
     }
 
-    /* ==========================================================================
-       MODAL DE TARJETAS INFORMATIVAS DE LÍNEAS
-       ========================================================================== */
     const modalInfoLinea = document.getElementById("modal-info-linea");
     const botonesAbrirInfo = document.querySelectorAll("[data-abrir-info-linea]");
     const botonesCerrarInfo = document.querySelectorAll("[data-cerrar-info-linea]");
@@ -517,10 +494,6 @@ document.addEventListener("DOMContentLoaded", function () {
             cerrarModal();
         });
     });
-
-    /* ==========================================================================
-       MODAL DE AVISO DE PRIVACIDAD INTEGRADO
-       ========================================================================== */
     const modalPrivacidad = document.getElementById("modal-privacidad");
     const botonesAbrirPrivacidad = document.querySelectorAll("[data-abrir-privacidad]");
     const botonesCerrarPrivacidad = document.querySelectorAll("[data-cerrar-privacidad]");
@@ -573,12 +546,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const formulario = document.getElementById("formulario-cotizacion");
     const mensajeExito = document.getElementById("mensaje-exito");
     const mensajeExitoTexto = document.getElementById("mensaje-exito-texto");
+    const mensajeError = document.getElementById("mensaje-error");
+    const mensajeErrorTexto = document.getElementById("mensaje-error-texto");
 
     if (formulario) {
         formulario.addEventListener("submit", function (evento) {
             evento.preventDefault();
             const botonEnvio = formulario.querySelector("button[type='submit']");
             const textoOriginal = textoBotonEnvio ? textoBotonEnvio.textContent : (botonEnvio ? botonEnvio.textContent : "SOLICITAR PROPUESTA");
+
+            if (mensajeExito) mensajeExito.style.display = "none";
+            if (mensajeError) mensajeError.style.display = "none";
 
             if (botonEnvio) {
                 botonEnvio.disabled = true;
@@ -595,37 +573,57 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: datos
             })
             .then(function (respuesta) {
-                return respuesta.json();
+                return respuesta.text().then(function (texto) {
+                    let datosJson = null;
+                    try {
+                        datosJson = JSON.parse(texto);
+                    } catch (e) {
+                        datosJson = null;
+                    }
+                    return { ok: respuesta.ok, status: respuesta.status, datos: datosJson };
+                });
             })
-            .then(function (resultado) {
-                if (resultado.exito) {
+            .then(function (res) {
+                if (res.ok && res.datos && res.datos.exito === true) {
                     formulario.reset();
+                    if (mensajeError) mensajeError.style.display = "none";
                     if (mensajeExito) {
                         mensajeExito.style.display = "block";
-                        if (mensajeExitoTexto && resultado.mensaje) {
-                            mensajeExitoTexto.textContent = resultado.mensaje;
+                        if (mensajeExitoTexto) {
+                            mensajeExitoTexto.textContent = res.datos.mensaje || "Tu solicitud ha sido recibida con éxito. Un asesor de JASANA se comunicará contigo a la brevedad.";
                         }
                     }
                     setTimeout(function () {
                         cerrarModal();
                         if (mensajeExito) mensajeExito.style.display = "none";
-                    }, 3500);
+                    }, 4000);
                 } else {
-                    alert(resultado.mensaje || "Ocurrió un error al enviar la propuesta.");
+                    if (mensajeExito) mensajeExito.style.display = "none";
+                    const mensajeFallo = (res.datos && res.datos.mensaje)
+                        ? res.datos.mensaje
+                        : "Hubo un inconveniente al enviar la propuesta. Por favor intenta de nuevo o escríbenos directamente a info@jasana.mx";
+
+                    if (mensajeError) {
+                        mensajeError.style.display = "block";
+                        if (mensajeErrorTexto) {
+                            mensajeErrorTexto.textContent = mensajeFallo;
+                        }
+                    } else {
+                        alert(mensajeFallo);
+                    }
                 }
             })
             .catch(function () {
-                formulario.reset();
-                if (mensajeExito) {
-                    mensajeExito.style.display = "block";
-                    if (mensajeExitoTexto) {
-                        mensajeExitoTexto.textContent = "Tu solicitud ha sido recibida con éxito. Un asesor de JASANA se comunicará contigo a la brevedad.";
+                if (mensajeExito) mensajeExito.style.display = "none";
+                const errorRed = "No fue posible conectar con el servidor. Por favor verifica tu conexión a internet o intenta de nuevo.";
+                if (mensajeError) {
+                    mensajeError.style.display = "block";
+                    if (mensajeErrorTexto) {
+                        mensajeErrorTexto.textContent = errorRed;
                     }
+                } else {
+                    alert(errorRed);
                 }
-                setTimeout(function () {
-                    cerrarModal();
-                    if (mensajeExito) mensajeExito.style.display = "none";
-                }, 3500);
             })
             .finally(function () {
                 if (botonEnvio) {
@@ -667,5 +665,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 botonSimular.disabled = false;
             }, 600);
         });
+    }
+
+    // Almacenamiento y precache persistente de imagenes criticas en navegador
+    if (window.caches) {
+        window.caches.open('jasana-imagenes-v1').then(function (cache) {
+            cache.addAll([
+                'assets/imagenes/hero_slide_01.webp',
+                'assets/imagenes/hero_slide_02.webp',
+                'assets/imagenes/hero_slide_03.webp',
+                'assets/imagenes/logo_blanco.webp',
+                'assets/imagenes/logo_oscuro.webp'
+            ]).catch(function () {});
+        }).catch(function () {});
     }
 });

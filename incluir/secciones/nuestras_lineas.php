@@ -21,7 +21,7 @@
             <article class="tarjeta-linea tarjeta-linea--signature">
                 <a href="#info-signature" class="tarjeta-linea-enlace" data-abrir-info-linea="Signature">
                     <div class="tarjeta-linea-imagen-marco">
-                        <img src="assets/imagenes/linea_signature.jpg" alt="JASANA Signature - Confección a la medida" class="tarjeta-linea-imagen" loading="lazy">
+                        <img src="assets/imagenes/linea_signature.webp" alt="JASANA Signature - Confección a la medida" class="tarjeta-linea-imagen" loading="lazy">
                         <span class="insignia-linea insignia-linea--signature">SIGNATURE</span>
                     </div>
                     <div class="tarjeta-linea-cuerpo">
@@ -41,7 +41,7 @@
             <article class="tarjeta-linea tarjeta-linea--essentials">
                 <a href="#info-essentials" class="tarjeta-linea-enlace" data-abrir-info-linea="Essentials">
                     <div class="tarjeta-linea-imagen-marco">
-                        <img src="assets/imagenes/linea_essentials.jpg" alt="JASANA Essentials - Colecciones listas para entrega" class="tarjeta-linea-imagen" loading="lazy">
+                        <img src="assets/imagenes/linea_essentials.webp" alt="JASANA Essentials - Colecciones listas para entrega" class="tarjeta-linea-imagen" loading="lazy">
                         <span class="insignia-linea insignia-linea--essentials">ESSENTIALS</span>
                     </div>
                     <div class="tarjeta-linea-cuerpo">
@@ -61,7 +61,7 @@
             <article class="tarjeta-linea tarjeta-linea--bath">
                 <a href="#info-bath" class="tarjeta-linea-enlace" data-abrir-info-linea="Bath & Bed">
                     <div class="tarjeta-linea-imagen-marco">
-                        <img src="assets/imagenes/linea_bath_bed.jpg" alt="Bath & Bed - Blancos y toallas de alta gama" class="tarjeta-linea-imagen" loading="lazy">
+                        <img src="assets/imagenes/linea_bath_bed.webp" alt="Bath & Bed - Blancos y toallas de alta gama" class="tarjeta-linea-imagen" loading="lazy">
                         <span class="insignia-linea insignia-linea--bath">BATH &amp; BED</span>
                     </div>
                     <div class="tarjeta-linea-cuerpo">

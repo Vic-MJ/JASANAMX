@@ -1,7 +1,7 @@
 <section id="inicio" class="seccion-hero" aria-label="Presentación principal">
     <div class="deslizador-hero" id="deslizador-hero">
         <div class="diapositiva diapositiva--activa" data-indice="0" aria-label="Los mejores aliados para la imagen de tu Hotel">
-            <div class="diapositiva-imagen" style="background-image: url('assets/imagenes/hero_slide_01.jpg');"></div>
+            <div class="diapositiva-imagen" style="background-image: url('assets/imagenes/hero_slide_01.webp');"></div>
             <div class="diapositiva-velo diapositiva-velo--derecha"></div>
             <div class="contenedor contenedor-hero">
                 <div class="bloque-titular bloque-titular--derecha">
@@ -18,7 +18,7 @@
         </div>
 
         <div class="diapositiva" data-indice="1" aria-label="Diseños personalizados y Telas con tecnología">
-            <div class="diapositiva-imagen" style="background-image: url('assets/imagenes/hero_slide_02.jpg');"></div>
+            <div class="diapositiva-imagen" style="background-image: url('assets/imagenes/hero_slide_02.webp');"></div>
             <div class="diapositiva-velo diapositiva-velo--izquierda"></div>
             <div class="contenedor contenedor-hero">
                 <div class="bloque-titular bloque-titular--izquierda">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="diapositiva" data-indice="2" aria-label="CYCLES App: Control Textil Inteligente">
-            <div class="diapositiva-imagen" style="background-image: url('assets/imagenes/hero_slide_03.jpg');"></div>
+            <div class="diapositiva-imagen" style="background-image: url('assets/imagenes/hero_slide_03.webp');"></div>
             <div class="diapositiva-velo diapositiva-velo--izquierda"></div>
             <div class="contenedor contenedor-hero">
                 <div class="bloque-titular bloque-titular--izquierda">

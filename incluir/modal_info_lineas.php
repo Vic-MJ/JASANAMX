@@ -1,7 +1,6 @@
 <div id="modal-info-linea" class="modal-info-linea" aria-hidden="true" data-linea-activa="Signature">
     <div class="modal-fondo" data-cerrar-info-linea></div>
     <div class="modal-contenedor modal-contenedor--info-linea">
-        <!-- Barra de acento dinámico según la línea -->
         <div class="modal-linea-acento" aria-hidden="true"></div>
 
         <button type="button" class="modal-cerrar" data-cerrar-info-linea aria-label="Cerrar ficha informativa">
@@ -11,7 +10,6 @@
             </svg>
         </button>
 
-        <!-- Selector superior de pestañas entre las 3 líneas -->
         <div class="info-lineas-tabs-envoltorio">
             <span class="subtitulo-etiqueta-info">INFORMACIÓN DE COLECCIÓN</span>
             <div class="info-lineas-tabs" role="tablist" aria-label="Pestañas de colecciones">
@@ -27,14 +25,11 @@
             </div>
         </div>
 
-        <!-- =================================================================
-             PANEL 1: JASANA SIGNATURE
-             ================================================================= -->
         <article class="panel-info-linea panel-info-linea--activa" data-panel-linea="Signature">
             <div class="info-linea-rejilla-hero">
                 <div class="info-linea-visual">
                     <div class="info-linea-imagen-marco">
-                        <img src="assets/imagenes/linea_signature.jpg" alt="JASANA Signature - Confección a la medida" class="info-linea-imagen">
+                        <img src="assets/imagenes/linea_signature.webp" alt="JASANA Signature - Confección a la medida" class="info-linea-imagen">
                         <span class="insignia-linea insignia-linea--signature">SIGNATURE</span>
                     </div>
                 </div>
@@ -51,7 +46,6 @@
                 </div>
             </div>
 
-            <!-- Cuadrícula de 4 tarjetas de especificaciones -->
             <div class="info-linea-cuadricula-especificaciones">
                 <div class="tarjeta-especificacion">
                     <div class="icono-especificacion">
@@ -108,15 +102,11 @@
                 </button>
             </div>
         </article>
-
-        <!-- =================================================================
-             PANEL 2: JASANA ESSENTIALS
-             ================================================================= -->
         <article class="panel-info-linea" data-panel-linea="Essentials">
             <div class="info-linea-rejilla-hero">
                 <div class="info-linea-visual">
                     <div class="info-linea-imagen-marco">
-                        <img src="assets/imagenes/linea_essentials.jpg" alt="JASANA Essentials - Colecciones listas" class="info-linea-imagen">
+                        <img src="assets/imagenes/linea_essentials.webp" alt="JASANA Essentials - Colecciones listas" class="info-linea-imagen">
                         <span class="insignia-linea insignia-linea--essentials">ESSENTIALS</span>
                     </div>
                 </div>
@@ -133,7 +123,6 @@
                 </div>
             </div>
 
-            <!-- Cuadrícula de 4 tarjetas de especificaciones -->
             <div class="info-linea-cuadricula-especificaciones">
                 <div class="tarjeta-especificacion">
                     <div class="icono-especificacion">
@@ -191,14 +180,11 @@
             </div>
         </article>
 
-        <!-- =================================================================
-             PANEL 3: BATH & BED
-             ================================================================= -->
         <article class="panel-info-linea" data-panel-linea="Bath & Bed">
             <div class="info-linea-rejilla-hero">
                 <div class="info-linea-visual">
                     <div class="info-linea-imagen-marco">
-                        <img src="assets/imagenes/linea_bath_bed.jpg" alt="Bath & Bed - Blancos y toallas" class="info-linea-imagen">
+                        <img src="assets/imagenes/linea_bath_bed.webp" alt="Bath & Bed - Blancos y toallas" class="info-linea-imagen">
                         <span class="insignia-linea insignia-linea--bath">BATH &amp; BED</span>
                     </div>
                 </div>
@@ -215,7 +201,6 @@
                 </div>
             </div>
 
-            <!-- Cuadrícula de 4 tarjetas de especificaciones -->
             <div class="info-linea-cuadricula-especificaciones">
                 <div class="tarjeta-especificacion">
                     <div class="icono-especificacion">
@@ -273,7 +258,6 @@
             </div>
         </article>
 
-        <!-- Nota sutil al pie -->
         <p class="info-linea-pie-nota">
             Muestrarios físicos y pruebas de lavado disponibles para proyectos hoteleros &bull; Cobertura en toda la República Mexicana
         </p>

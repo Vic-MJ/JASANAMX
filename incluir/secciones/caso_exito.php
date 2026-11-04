@@ -22,7 +22,7 @@
 
             <div class="visual-testimonio">
                 <div class="marco-imagen-editorial">
-                    <img src="assets/imagenes/caso_exito_rosewood.jpg" alt="Colaboradora en servicio de restaurante de lujo con uniforme impecable" class="imagen-editorial" loading="lazy">
+                    <img src="assets/imagenes/caso_exito_rosewood.webp" alt="Colaboradora en servicio de restaurante de lujo con uniforme impecable" class="imagen-editorial" loading="lazy">
                 </div>
             </div>
         </div>

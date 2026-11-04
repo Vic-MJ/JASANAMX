@@ -1,9 +1,4 @@
 <?php
-/**
- * JASANA HOTELS & RESORTS - Procesador de Cotizaciones
- * Envío de solicitudes vía SMTP SSL (mail.uniformesjasana.com:465)
- */
-
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -17,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 require_once __DIR__ . '/incluir/servicio_correo.php';
 
-// Sanitización y captura de campos
 $nombre = isset($_POST['nombre']) ? trim(strip_tags($_POST['nombre'])) : '';
 $hotel = isset($_POST['hotel']) ? trim(strip_tags($_POST['hotel'])) : '';
 $ciudad = isset($_POST['ciudad']) ? trim(strip_tags($_POST['ciudad'])) : '';
@@ -28,7 +22,6 @@ $volumen = isset($_POST['volumen']) ? trim(strip_tags($_POST['volumen'])) : '';
 $mensaje = isset($_POST['mensaje']) ? trim(strip_tags($_POST['mensaje'])) : '';
 $etiquetas = isset($_POST['etiquetas']) ? trim(strip_tags($_POST['etiquetas'])) : '';
 
-// Validación de campos obligatorios
 if (empty($nombre) || empty($hotel) || empty($correo) || empty($telefono)) {
     http_response_code(400);
     echo json_encode([
@@ -47,7 +40,6 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-// Mapeo descriptivo para volumen y líneas
 $etiquetasVolumen = [
     '1-25' => '1 a 25 personas / habitaciones',
     '26-75' => '26 a 75 personas / habitaciones',
@@ -65,7 +57,6 @@ $nombresLineas = [
 ];
 $lineaTexto = isset($nombresLineas[$linea]) ? $nombresLineas[$linea] : $linea;
 
-// Colores de acento por línea para el correo
 $coloresLinea = [
     'Signature' => '#9B8D7F',
     'Essentials' => '#707A5A',
@@ -78,10 +69,20 @@ $colorAcento = isset($coloresLinea[$linea]) ? $coloresLinea[$linea] : '#C4A482';
 $fechaHora = date('d/m/Y H:i:s');
 $asunto = "Nueva Cotización: $hotel — $nombre ($linea)";
 
-// Destinatario para pruebas según solicitud del usuario
-$destinatarios = [JASANA_MAIL_DESTINATARIO_PRUEBAS];
+$lineaClave = trim($linea);
+if (strcasecmp($lineaClave, 'Essentials') === 0) {
+    $destinatarios = [JASANA_MAIL_DESTINATARIO_ESSENTIALS];
+} elseif (strcasecmp($lineaClave, 'Bath & Bed') === 0 || strcasecmp($lineaClave, 'Bath and Bed') === 0 || strcasecmp($lineaClave, 'Bath and Beth') === 0) {
+    $destinatarios = [JASANA_MAIL_DESTINATARIO_BATH_BED];
+} elseif (strcasecmp($lineaClave, 'Cycles') === 0) {
+    $destinatarios = [JASANA_MAIL_DESTINATARIO_CYCLES];
+} elseif (strcasecmp($lineaClave, 'Signature') === 0) {
+    $destinatarios = [JASANA_MAIL_DESTINATARIO_SIGNATURE];
+} else {
+    $destinatarios = [JASANA_MAIL_DESTINATARIO_GENERAL];
+}
+$destinatariosTexto = htmlspecialchars(implode(', ', $destinatarios));
 
-// Construcción del correo en HTML con diseño editorial de lujo
 $cuerpoHtml = <<<HTML
 <!DOCTYPE html>
 <html lang="es">
@@ -95,9 +96,7 @@ $cuerpoHtml = <<<HTML
   <tr>
     <td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 620px; background-color: #FFFFFF; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 24px rgba(24, 26, 24, 0.08); border: 1px solid #ECE8E1;">
-        
-        <!-- Cabecera Editorial JASANA -->
-        <tr>
+                <tr>
           <td style="background-color: #181A18; padding: 32px 36px; text-align: left;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
@@ -115,12 +114,10 @@ $cuerpoHtml = <<<HTML
           </td>
         </tr>
 
-        <!-- Barra de acento sutil -->
         <tr>
           <td style="height: 3px; background-color: {$colorAcento}; font-size: 0; line-height: 0;">&nbsp;</td>
         </tr>
 
-        <!-- Contenido Principal -->
         <tr>
           <td style="padding: 36px 36px 28px 36px;">
             <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 600; color: #181A18; letter-spacing: -0.01em;">
@@ -130,7 +127,6 @@ $cuerpoHtml = <<<HTML
               Recibida el {$fechaHora} a través del sitio web oficial.
             </p>
 
-            <!-- Tabla de Datos -->
             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; margin-bottom: 24px;">
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #F0EEE9; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #8A8884; width: 38%; font-weight: 600;">Hotel / Empresa</td>
@@ -180,7 +176,6 @@ $mensajeHtml = !empty($mensaje) ? nl2br(htmlspecialchars($mensaje, ENT_QUOTES, '
 $cuerpoHtml .= <<<HTML
             </table>
 
-            <!-- Caja de Mensaje / Detalles -->
             <div style="background-color: #FBF9F6; border-left: 3px solid {$colorAcento}; padding: 18px 20px; border-radius: 4px; margin-bottom: 26px;">
               <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #8A8884; font-weight: 600; display: block; margin-bottom: 6px;">Detalles del proyecto / Notas</span>
               <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #2C2C2C;">
@@ -188,7 +183,6 @@ $cuerpoHtml .= <<<HTML
               </p>
             </div>
 
-            <!-- Botón de acción rápida -->
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td align="center" style="padding: 10px 0 20px 0;">
@@ -202,14 +196,13 @@ $cuerpoHtml .= <<<HTML
           </td>
         </tr>
 
-        <!-- Pie de página del correo -->
         <tr>
           <td style="background-color: #FAFAFA; border-top: 1px solid #ECE8E1; padding: 20px 36px; text-align: center;">
             <p style="margin: 0 0 4px 0; font-size: 11px; color: #9B9894; letter-spacing: 0.05em;">
-              Enviado de forma segura mediante servidor SMTP: <strong>mail.uniformesjasana.com</strong> (SSL/TLS).
+              Enviado mediante servidor SMTP de JASANA (SSL/TLS).
             </p>
             <p style="margin: 0; font-size: 11px; color: #BBB8B4;">
-              Receptor configurado para pruebas: <strong>sistemas@uniformesjasana.com</strong>
+              Canalizado a: <strong>{$destinatariosTexto}</strong>
             </p>
           </td>
         </tr>
@@ -222,7 +215,6 @@ $cuerpoHtml .= <<<HTML
 </html>
 HTML;
 
-// Versión en texto plano para clientes de correo sin soporte HTML
 $cuerpoTexto = "==================================================\n";
 $cuerpoTexto .= "JASANA HOTELS & RESORTS - NUEVA COTIZACIÓN\n";
 $cuerpoTexto .= "==================================================\n\n";
@@ -243,7 +235,6 @@ $cuerpoTexto .= ($mensaje ?: "Sin comentarios adicionales") . "\n\n";
 $cuerpoTexto .= "--------------------------------------------------\n";
 $cuerpoTexto .= "Para responder a este cliente, responde directamente a este correo.\n";
 
-// Envío a través del servidor SMTP seguro con Reply-To al cliente
 $resultado = enviarCorreoSMTP(
     $destinatarios,
     $asunto,
@@ -259,13 +250,12 @@ if ($resultado['exito']) {
         'mensaje' => 'Tu solicitud ha sido recibida con éxito. Un asesor de JASANA se comunicará contigo a la brevedad.'
     ]);
 } else {
-    // Registro interno de error si falla
     error_log("[JASANA SMTP ERROR] " . ($resultado['error'] ?? 'Error desconocido'));
     
     http_response_code(500);
     echo json_encode([
         'exito' => false,
-        'mensaje' => 'Hubo un inconveniente al enviar la propuesta. Por favor intenta de nuevo o escríbenos directamente a info@uniformesjasana.com',
+        'mensaje' => 'Hubo un inconveniente al enviar la propuesta. Por favor intenta de nuevo o escríbenos directamente a ventas@uniformesjasana.com',
         'detalle' => $resultado['error'] ?? null
     ]);
 }

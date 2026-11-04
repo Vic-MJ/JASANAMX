@@ -1,8 +1,8 @@
 <header id="encabezado-principal" class="encabezado-principal">
     <div class="contenedor encabezado-contenedor">
         <a href="./" class="enlace-logotipo" aria-label="JASANA Hotel Wear - Inicio">
-            <img src="assets/imagenes/logo_blanco.png" alt="JASANA Hotel Wear" class="logotipo logotipo--blanco">
-            <img src="assets/imagenes/logo_oscuro.png" alt="JASANA Hotel Wear" class="logotipo logotipo--oscuro">
+            <img src="assets/imagenes/logo_blanco.webp" alt="JASANA Hotel Wear" class="logotipo logotipo--blanco">
+            <img src="assets/imagenes/logo_oscuro.webp" alt="JASANA Hotel Wear" class="logotipo logotipo--oscuro">
         </a>
 
         <nav class="navegacion-principal" id="menu-navegacion" aria-label="Navegación principal">

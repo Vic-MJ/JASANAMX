@@ -1,7 +1,6 @@
 <div id="modal-cotizar" class="modal-cotizacion" aria-hidden="true" data-linea-activa="Signature">
     <div class="modal-fondo" data-cerrar-modal></div>
     <div class="modal-contenedor">
-        <!-- Línea sutil de acento superior -->
         <div class="modal-linea-acento" aria-hidden="true"></div>
 
         <button type="button" class="modal-cerrar" data-cerrar-modal aria-label="Cerrar ventana">
@@ -18,7 +17,6 @@
         </div>
 
         <form id="formulario-cotizacion" class="formulario-cotizacion" action="procesar_cotizacion.php" method="POST">
-            <!-- Selector tipográfico minimalista de línea -->
             <div class="selector-lineas-bloque">
                 <div class="selector-lineas-tabs" role="tablist" aria-label="Selección de línea de interés">
                     <button type="button" class="tab-linea activa" data-linea="Signature" role="tab" aria-selected="true">Signature</button>
@@ -28,7 +26,6 @@
                     <button type="button" class="tab-linea" data-linea="Integral" role="tab" aria-selected="false">Proyecto Integral</button>
                 </div>
 
-                <!-- Select nativo para formularios y accesibilidad -->
                 <select id="campo-linea" name="linea" class="control-linea-oculto" aria-label="Línea de interés">
                     <option value="Signature">JASANA Signature (Alta personalización)</option>
                     <option value="Essentials">JASANA Essentials (Colecciones listas)</option>
@@ -37,19 +34,16 @@
                     <option value="Integral">Proyecto integral completo</option>
                 </select>
 
-                <!-- Retoque sutil: micro-frase que describe la línea con elegancia y sin ruido -->
                 <p class="nota-linea-sutil" id="nota-linea-sutil">
                     Sastrería de autor y alta personalización para recepción, concierge y directivos.
                 </p>
             </div>
 
-            <!-- Fila: Nombre completo -->
             <div class="campo-grupo">
                 <label for="campo-nombre" class="etiqueta-campo">Nombre completo</label>
                 <input type="text" id="campo-nombre" name="nombre" class="control-entrada" required placeholder="Ej. Carlos Mendoza">
             </div>
 
-            <!-- Fila: Hotel y Ubicación -->
             <div class="campo-fila">
                 <div class="campo-grupo">
                     <label for="campo-hotel" class="etiqueta-campo">Hotel o Empresa</label>
@@ -61,7 +55,6 @@
                 </div>
             </div>
 
-            <!-- Fila: Correo y Teléfono -->
             <div class="campo-fila">
                 <div class="campo-grupo">
                     <label for="campo-correo" class="etiqueta-campo">Correo electrónico</label>
@@ -73,7 +66,6 @@
                 </div>
             </div>
 
-            <!-- Fila: Volumen contextual -->
             <div class="campo-grupo">
                 <label for="campo-volumen" class="etiqueta-campo" id="etiqueta-volumen">Colaboradores a uniformar</label>
                 <div class="select-envoltorio">
@@ -91,13 +83,11 @@
                 </div>
             </div>
 
-            <!-- Fila: Detalles del proyecto -->
             <div class="campo-grupo">
                 <label for="campo-mensaje" class="etiqueta-campo">Detalles del proyecto</label>
                 <textarea id="campo-mensaje" name="mensaje" rows="3" class="control-entrada control-area" placeholder="Cuéntanos sobre tus requerimientos o fecha estimada..."></textarea>
             </div>
 
-            <!-- Botón de Envío y nota de servicio -->
             <div class="bloque-accion-modal">
                 <button type="submit" class="boton-cta boton-cta--solido boton-cta--completo boton-envio-minimal" id="boton-envio-cotizacion">
                     <span id="texto-boton-envio">SOLICITAR PROPUESTA</span>
@@ -105,10 +95,15 @@
                 <p class="pie-nota-confidencialidad">Atención personalizada en menos de 24 horas hábiles &bull; Muestrario físico disponible</p>
             </div>
 
-            <!-- Mensaje de éxito minimalista -->
-            <div id="mensaje-exito" class="mensaje-exito-minimal" style="display: none;">
+            <div id="mensaje-exito" class="mensaje-exito-minimal" style="display: none;" role="status" aria-live="polite">
                 <p class="mensaje-exito-texto-minimal" id="mensaje-exito-texto">
                     Tu solicitud ha sido recibida con éxito. Un asesor de JASANA se comunicará contigo a la brevedad.
+                </p>
+            </div>
+
+            <div id="mensaje-error" class="mensaje-error-minimal" style="display: none;" role="alert" aria-live="assertive">
+                <p class="mensaje-error-texto-minimal" id="mensaje-error-texto">
+                    Ocurrió un error al enviar la propuesta. Por favor intenta de nuevo.
                 </p>
             </div>
         </form>

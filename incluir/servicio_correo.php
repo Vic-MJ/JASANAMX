@@ -1,31 +1,16 @@
 <?php
-/**
- * JASANA HOTELS & RESORTS - Servicio de Correo SMTP Seguro
- * Configuración para: info@uniformesjasana.com
- * Salida: mail.uniformesjasana.com:465 SSL/TLS
- */
-
-define('JASANA_SMTP_HOST', 'ssl://mail.uniformesjasana.com');
+define('JASANA_SMTP_HOST', 'ssl://mail.jasana.mx');
 define('JASANA_SMTP_PORT', 465);
-define('JASANA_SMTP_USER', 'info@uniformesjasana.com');
-define('JASANA_SMTP_PASS', 'NRu1ap5BeA$tx&Ag');
+define('JASANA_SMTP_USER', 'info@jasana.mx');
+define('JASANA_SMTP_PASS', '%bP@!7mFQ8qc7eHm');
 define('JASANA_MAIL_FROM_EMAIL', 'info@uniformesjasana.com');
 define('JASANA_MAIL_FROM_NAME', 'Uniformes JASANA - Cotizaciones Web');
+define('JASANA_MAIL_DESTINATARIO_SIGNATURE', 'ventas@uniformesjasana.com');
+define('JASANA_MAIL_DESTINATARIO_ESSENTIALS', 'ventas.gdl@uniformesjasana.com');
+define('JASANA_MAIL_DESTINATARIO_BATH_BED', 'ventas.gdl@uniformesjasana.com');
+define('JASANA_MAIL_DESTINATARIO_CYCLES', 'info.cycles@jasana.mx');
+define('JASANA_MAIL_DESTINATARIO_GENERAL', 'ventas@uniformesjasana.com');
 
-// Receptor para pruebas según solicitud del usuario
-define('JASANA_MAIL_DESTINATARIO_PRUEBAS', 'sistemas@uniformesjasana.com');
-
-/**
- * Envía un correo electrónico autenticado vía SMTP seguro (SSL en puerto 465).
- *
- * @param string|array $destinatarios Correo o lista de correos
- * @param string $asunto Asunto del correo en UTF-8
- * @param string $cuerpoHtml Contenido HTML enriquecido
- * @param string $cuerpoTexto Versión alternativa en texto plano
- * @param string|null $replyToEmail Correo del cliente para responder directamente
- * @param string|null $replyToNombre Nombre del cliente
- * @return array ['exito' => bool, 'mensaje' => string, 'error' => string|null]
- */
 function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '', $replyToEmail = null, $replyToNombre = null) {
     if (!is_array($destinatarios)) {
         $destinatarios = [$destinatarios];
@@ -64,7 +49,6 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
             $linea = fgets($socket, 515);
             if ($linea === false) break;
             $respuesta .= $linea;
-            // RFC: la última línea de una respuesta multilínea tiene un espacio tras el código
             if (strlen($linea) >= 4 && substr($linea, 3, 1) === ' ') {
                 break;
             }
@@ -82,23 +66,20 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
         return ['ok' => true, 'codigo' => $codigo, 'respuesta' => $res];
     };
 
-    // 1. Saludo inicial del servidor SMTP
     $bienvenida = $leerRespuesta();
     if (substr($bienvenida, 0, 3) !== '220') {
         fclose($socket);
         return ['exito' => false, 'error' => "Bienvenida inesperada: $bienvenida"];
     }
 
-    // 2. Saludo EHLO
     $hostLocal = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : gethostname();
-    if (empty($hostLocal) || $hostLocal === 'localhost') $hostLocal = 'uniformesjasana.com';
+    if (empty($hostLocal) || $hostLocal === 'localhost') $hostLocal = 'jasana.mx';
     $r = $enviarComando('EHLO ' . $hostLocal, '250');
     if (!$r['ok']) {
         fclose($socket);
         return ['exito' => false, 'error' => "Fallo EHLO: " . $r['respuesta']];
     }
 
-    // 3. Autenticación AUTH LOGIN
     $r = $enviarComando('AUTH LOGIN', '334');
     if (!$r['ok']) {
         fclose($socket);
@@ -117,14 +98,16 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
         return ['exito' => false, 'error' => "Contraseña SMTP rechazada: " . $r['respuesta']];
     }
 
-    // 4. Remitente MAIL FROM
-    $r = $enviarComando('MAIL FROM:<' . JASANA_MAIL_FROM_EMAIL . '>', '250');
+    $envelopeSender = JASANA_SMTP_USER;
+    $r = $enviarComando('MAIL FROM:<' . $envelopeSender . '>', '250');
     if (!$r['ok']) {
-        fclose($socket);
-        return ['exito' => false, 'error' => "Fallo MAIL FROM: " . $r['respuesta']];
+        $r = $enviarComando('MAIL FROM:<' . JASANA_MAIL_FROM_EMAIL . '>', '250');
+        if (!$r['ok']) {
+            fclose($socket);
+            return ['exito' => false, 'error' => "Fallo MAIL FROM: " . $r['respuesta']];
+        }
     }
 
-    // 5. Destinatarios RCPT TO
     $aceptados = 0;
     foreach ($destinatarios as $dest) {
         $dest = trim($dest);
@@ -136,18 +119,22 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
     }
 
     if ($aceptados === 0) {
-        fclose($socket);
-        return ['exito' => false, 'error' => "Ningún destinatario fue aceptado por el servidor."];
+        $fallbackEmail = defined('JASANA_MAIL_DESTINATARIO_GENERAL') ? JASANA_MAIL_DESTINATARIO_GENERAL : 'ventas@uniformesjasana.com';
+        $r = $enviarComando('RCPT TO:<' . $fallbackEmail . '>', '250');
+        if ($r['ok']) {
+            $aceptados++;
+        } else {
+            fclose($socket);
+            return ['exito' => false, 'error' => "Ningún destinatario fue aceptado por el servidor."];
+        }
     }
 
-    // 6. Inicio de datos DATA
     $r = $enviarComando('DATA', '354');
     if (!$r['ok']) {
         fclose($socket);
         return ['exito' => false, 'error' => "Fallo comando DATA: " . $r['respuesta']];
     }
 
-    // 7. Construcción de cabeceras MIME y cuerpo multipart/alternative
     $boundary = '=_jasana_' . md5(uniqid((string)time(), true));
     $asuntoCodificado = '=?UTF-8?B?' . base64_encode($asunto) . '?=';
     $remitenteCodificado = '=?UTF-8?B?' . base64_encode(JASANA_MAIL_FROM_NAME) . '?= <' . JASANA_MAIL_FROM_EMAIL . '>';
@@ -164,7 +151,7 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
         }
     }
     $headers[] = 'Subject: ' . $asuntoCodificado;
-    $headers[] = 'Message-ID: <' . time() . '.' . md5(uniqid()) . '@' . 'uniformesjasana.com>';
+    $headers[] = 'Message-ID: <' . time() . '.' . md5(uniqid()) . '@' . 'jasana.mx>';
     $headers[] = 'X-Mailer: JASANA Web Engine';
     $headers[] = 'MIME-Version: 1.0';
     $headers[] = 'Content-Type: multipart/alternative; boundary="' . $boundary . '"';
@@ -186,7 +173,6 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
 
     $payload = implode("\r\n", $headers) . "\r\n\r\n" . implode("\r\n", $cuerpoMensaje);
     
-    // Dot-stuffing RFC 5321
     $payload = preg_replace('/^\./m', '..', $payload);
     $payloadFinal = $payload . "\r\n.";
 

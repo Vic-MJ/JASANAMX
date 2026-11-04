@@ -1,7 +1,6 @@
 <div id="modal-privacidad" class="modal-privacidad" aria-hidden="true" role="dialog" aria-labelledby="titulo-modal-privacidad">
     <div class="modal-fondo" data-cerrar-privacidad></div>
     <div class="modal-contenedor modal-contenedor--privacidad">
-        <!-- Barra de acento superior -->
         <div class="modal-linea-acento" aria-hidden="true"></div>
 
         <button type="button" class="modal-cerrar" data-cerrar-privacidad aria-label="Cerrar aviso de privacidad">
@@ -23,14 +22,12 @@
         </div>
 
         <div class="privacidad-cuerpo-lectura">
-            <!-- Introducción legal -->
             <div class="privacidad-seccion privacidad-intro">
                 <p>
                     En cumplimiento a lo dispuesto por la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong> (en adelante la <em>Ley</em>), así como el capítulo V, sección I de los Lineamientos de Aviso de Privacidad publicados en el Diario Oficial de la Federación el 17 de enero del 2013, la persona moral de nombre <strong>CORPORATIVO TEXTIL JSN, S. DE R.L. DE C.V.</strong>, representada por <strong>MA. DE JESÚS GARCÍA HERRERA</strong>, mediante su marca comercial denominada <strong>UNIFORMES JASANA&reg;</strong>, debidamente registrada ante el Instituto Mexicano de Propiedad Industrial con el número de concesión <strong>818341</strong>, con domicilio fiscal en <strong>Flaviano Ramos Sur número 37, en la colonia Centro, de Tlajomulco de Zúñiga, Jalisco</strong>, teniendo su Registro Federal de Contribuyentes (RFC) <strong>CTJ201123HI2</strong>; con fundamento en los artículos 8, 15, 16, 33, 36 y demás aplicables de la Ley y su reglamento ponemos a disposición el presente aviso de privacidad, con la finalidad de respetar el derecho de toda persona a la privacidad y a la autodeterminación informativa.
                 </p>
             </div>
 
-            <!-- I. Definiciones -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">I. Definiciones</h3>
                 <ul class="privacidad-lista-definiciones">
@@ -46,7 +43,6 @@
                 </ul>
             </div>
 
-            <!-- II. Datos que recabamos -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">II. Datos que recabamos</h3>
                 <p>
@@ -54,7 +50,6 @@
                 </p>
             </div>
 
-            <!-- III. Finalidad del tratamiento -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">III. Finalidad del tratamiento de los datos personales</h3>
                 <p>
@@ -93,7 +88,6 @@
                 </div>
             </div>
 
-            <!-- IV. Límites al uso y divulgación -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">IV. Límites al uso y la divulgación de sus datos personales</h3>
                 <p>
@@ -101,7 +95,6 @@
                 </p>
             </div>
 
-            <!-- V. Derechos ARCO -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">V. Medios para ejercer los derechos de acceso, rectificación, cancelación u oposición (Derechos ARCO)</h3>
                 <p>
@@ -123,7 +116,6 @@
                 </p>
             </div>
 
-            <!-- VI. Transferencia de Datos -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">VI. Transferencia de Datos</h3>
                 <p>
@@ -143,7 +135,6 @@
                 </p>
             </div>
 
-            <!-- VII. Audio, video y fotografía -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">VII. Audio, video y fotografía</h3>
                 <p>
@@ -151,7 +142,6 @@
                 </p>
             </div>
 
-            <!-- VIII. Medidas de seguridad -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">VIII. Medidas de seguridad</h3>
                 <p>
@@ -159,7 +149,6 @@
                 </p>
             </div>
 
-            <!-- IX. Área de datos personales -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">IX. Área de datos personales</h3>
                 <p>
@@ -177,7 +166,6 @@
                 </p>
             </div>
 
-            <!-- X. Cambios al Aviso -->
             <div class="privacidad-seccion">
                 <h3 class="privacidad-subtitulo">X. Cambios al Aviso de Privacidad</h3>
                 <p>

@@ -2,7 +2,7 @@
     <div class="contenedor pie-contenedor">
         <div class="pie-columna-marca">
             <a href="./" class="pie-logotipo-enlace" aria-label="JASANA Hotel Wear">
-                <img src="assets/imagenes/logo_oscuro.png" alt="JASANA Hotel Wear" class="pie-logotipo" loading="lazy">
+                <img src="assets/imagenes/logo_oscuro.webp" alt="JASANA Hotel Wear" class="pie-logotipo" loading="lazy">
             </a>
         </div>
 

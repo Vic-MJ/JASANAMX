@@ -1,5 +1,5 @@
 <section id="contacto" class="seccion seccion--cta-final">
-    <div class="cta-fondo-imagen" style="background-image: url('assets/imagenes/cta_fondo.jpg');"></div>
+    <div class="cta-fondo-imagen" style="background-image: url('assets/imagenes/cta_fondo.webp');"></div>
     <div class="cta-capa-oscura"></div>
     <div class="contenedor contenedor--reducido cta-contenido-relativo">
         <h2 class="titulo-cta-final">

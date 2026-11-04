@@ -25,7 +25,7 @@
         <div class="cuadricula-destacada-cycles">
             <div class="visual-cycles-contenedor">
                 <div class="marco-imagen-editorial marco-imagen-cycles">
-                    <img src="assets/imagenes/image.png" alt="Operación hotelera de lavandería inteligente con tablet y uniformes CYCLES" class="imagen-editorial" loading="lazy">
+                    <img src="assets/imagenes/image.webp" alt="Operación hotelera de lavandería inteligente con tablet y uniformes CYCLES" class="imagen-editorial" loading="lazy">
                 </div>
             </div>
 

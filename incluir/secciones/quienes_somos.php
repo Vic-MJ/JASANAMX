@@ -20,7 +20,7 @@
 
             <div class="visual-quienes-somos">
                 <div class="marco-imagen-editorial">
-                    <img src="assets/imagenes/quienes_somos.jpg" alt="Colaboradora con uniforme elegante en galería de hotel" class="imagen-editorial" loading="lazy">
+                    <img src="assets/imagenes/quienes_somos.webp" alt="Colaboradora con uniforme elegante en galería de hotel" class="imagen-editorial" loading="lazy">
                 </div>
             </div>
         </div>

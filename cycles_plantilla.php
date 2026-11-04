@@ -7,7 +7,7 @@ require_once __DIR__ . '/incluir/navegacion.php';
 ?>
 
 <section class="seccion-plantilla-hero">
-    <div class="plantilla-hero-fondo" style="background-image: url('assets/imagenes/hero_slide_03.jpg');"></div>
+    <div class="plantilla-hero-fondo" style="background-image: url('assets/imagenes/hero_slide_03.webp');"></div>
     <div class="plantilla-hero-velo"></div>
     <div class="contenedor plantilla-hero-contenedor">
         <div class="bloque-titular-plantilla">
@@ -167,7 +167,7 @@ require_once __DIR__ . '/incluir/navegacion.php';
 </section>
 
 <section class="seccion seccion--cta-final">
-    <div class="cta-fondo-imagen" style="background-image: url('assets/imagenes/cta_fondo.jpg');"></div>
+    <div class="cta-fondo-imagen" style="background-image: url('assets/imagenes/cta_fondo.webp');"></div>
     <div class="cta-capa-oscura"></div>
     <div class="contenedor contenedor--reducido cta-contenido-relativo">
         <h2 class="titulo-cta-final">

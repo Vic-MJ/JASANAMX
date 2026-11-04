@@ -3,7 +3,7 @@
         <div class="cuadricula-calidad">
             <div class="visual-calidad">
                 <div class="marco-imagen-editorial">
-                    <img src="assets/imagenes/calidad_detalle.jpg" alt="Detalle de puño de lino con bordado artesanal de monograma JASANA" class="imagen-editorial" loading="lazy">
+                    <img src="assets/imagenes/calidad_detalle.webp" alt="Detalle de puño de lino con bordado artesanal de monograma JASANA" class="imagen-editorial" loading="lazy">
                 </div>
             </div>
 

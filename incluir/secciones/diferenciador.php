@@ -63,7 +63,7 @@
 
             <div class="visual-diferenciador">
                 <div class="marco-imagen-editorial">
-                    <img src="assets/imagenes/diferenciador_lifestyle.jpg" alt="Terraza de resort con alberca y camastros de diseño" class="imagen-editorial" loading="lazy">
+                    <img src="assets/imagenes/diferenciador_lifestyle.webp" alt="Terraza de resort con alberca y camastros de diseño" class="imagen-editorial" loading="lazy">
                 </div>
             </div>
         </div>
