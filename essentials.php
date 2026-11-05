@@ -8,7 +8,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
 ?>
 
 <main class="principal-landing-linea">
-    <!-- Hero de Línea Essentials -->
     <section class="seccion-linea-hero">
         <div class="linea-hero-fondo" style="background-image: url('assets/imagenes/hero_slide_02.webp');"></div>
         <div class="linea-hero-velo linea-hero-velo--essentials"></div>
@@ -20,7 +19,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
             </nav>
 
             <div class="linea-hero-bloque-titular">
-                <span class="insignia-linea-destacada insignia-linea--essentials">DISPONIBILIDAD INMEDIATA &bull; HOSPITALIDAD Y GASTRONOMÍA</span>
                 <h1 class="titular-linea-hero">
                     JASANA Essentials:<br>
                     <span class="titular-enfasis">Agilidad, confort y disponibilidad inmediata.</span>
@@ -29,7 +27,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
                     Diseños seleccionados para hotelería y restaurantes. Elige los uniformes de tu equipo con facilidad y disponibilidad inmediata.
                 </p>
 
-                <!-- Jerarquía aprobada: Solicitar cotización como botón principal y Comprar en línea como secundario -->
                 <div class="linea-hero-acciones">
                     <a href="#cotizar" class="boton-cta boton-cta--solido boton-cta--grande" data-abrir-modal="modal-cotizar" data-linea-previa="Essentials">
                         <span>SOLICITAR COTIZACIÓN</span>
@@ -48,7 +45,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         </div>
     </section>
 
-    <!-- Descripción completa oficial -->
     <section class="seccion seccion--linea-editorial">
         <div class="contenedor">
             <div class="cuadricula-editorial-linea">
@@ -80,16 +76,12 @@ require_once __DIR__ . '/incluir/navegacion.php';
                 <div class="editorial-linea-col-der">
                     <div class="marco-imagen-editorial-linea">
                         <img src="assets/imagenes/linea_essentials.webp" alt="Colección de uniformes JASANA Essentials" class="imagen-editorial-linea" loading="lazy">
-                        <div class="pie-foto-editorial">
-                            <span>Resistencia superior y diseño funcional para equipos operativos</span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Cuadrícula de Especificaciones de Essentials -->
     <section class="seccion seccion--linea-especificaciones">
         <div class="contenedor">
             <div class="cabecera-seccion cabecera-seccion--centrada">

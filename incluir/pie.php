@@ -5,7 +5,6 @@
                 <img src="assets/imagenes/logo_oscuro.webp" alt="JASANA Hotel Wear" class="pie-logotipo" loading="lazy">
             </a>
             <p class="pie-razon-social">Corporativo Textil JSN</p>
-            <p class="pie-slogan-marca">Soluciones textiles que unen identidad, funcionalidad y diseño para transformar la manera en que se vive un hotel.</p>
         </div>
 
         <nav class="pie-navegacion" aria-label="Navegación de pie de página">
@@ -78,8 +77,6 @@
             <span class="pie-derechos">&copy; <?php echo date('Y'); ?> JASANA Hotel Wear &bull; Corporativo Textil JSN. Todos los derechos reservados.</span>
             <div class="pie-enlaces-legales">
                 <a href="#privacidad" data-abrir-privacidad>Aviso de privacidad</a>
-                <span class="separador-legal">|</span>
-                <a href="#terminos" data-abrir-terminos>Términos y Condiciones</a>
             </div>
         </div>
     </div>

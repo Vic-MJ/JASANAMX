@@ -8,7 +8,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
 ?>
 
 <main class="principal-landing-linea">
-    <!-- Hero de Línea Bath & Bed -->
     <section class="seccion-linea-hero">
         <div class="linea-hero-fondo" style="background-image: url('assets/imagenes/diferenciador_lifestyle.webp');"></div>
         <div class="linea-hero-velo linea-hero-velo--bath"></div>
@@ -20,7 +19,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
             </nav>
 
             <div class="linea-hero-bloque-titular">
-                <span class="insignia-linea-destacada insignia-linea--bath">BLANCOS DE ALTA GAMA &bull; EXPERIENCIA DEL HUÉSPED</span>
                 <h1 class="titular-linea-hero">
                     JASANA Bath &amp; Bed:<br>
                     <span class="titular-enfasis">Toallas 100% algodón y confort superior.</span>
@@ -47,7 +45,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         </div>
     </section>
 
-    <!-- Descripción completa oficial -->
     <section class="seccion seccion--linea-editorial">
         <div class="contenedor">
             <div class="cuadricula-editorial-linea">
@@ -79,16 +76,12 @@ require_once __DIR__ . '/incluir/navegacion.php';
                 <div class="editorial-linea-col-der">
                     <div class="marco-imagen-editorial-linea">
                         <img src="assets/imagenes/linea_bath_bed.webp" alt="Colección de toallas y blancos JASANA Bath & Bed" class="imagen-editorial-linea" loading="lazy">
-                        <div class="pie-foto-editorial">
-                            <span>Toallas blancas 100% algodón en tejido rizo de alto gramaje</span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Cuadrícula de Especificaciones de Bath & Bed -->
     <section class="seccion seccion--linea-especificaciones">
         <div class="contenedor">
             <div class="cabecera-seccion cabecera-seccion--centrada">
@@ -104,7 +97,7 @@ require_once __DIR__ . '/incluir/navegacion.php';
                     <div class="icono-especificacion-landing icono-especificacion-landing--bath">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"></circle><path d="M8 12a4 4 0 0 0 8 0"></path></svg>
                     </div>
-                    <h3 class="titulo-esp-landing">100% Algodón Peinado</h3>
+                    <h3 class="titulo-esp-landing">100% Algodón</h3>
                     <p class="desc-esp-landing">Fibras largas de algodón natural seleccionadas para brindar máxima capacidad de absorción y suavidad superior al contacto.</p>
                 </div>
 
@@ -112,8 +105,8 @@ require_once __DIR__ . '/incluir/navegacion.php';
                     <div class="icono-especificacion-landing icono-especificacion-landing--bath">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                     </div>
-                    <h3 class="titulo-esp-landing">Diversidad de Gramajes</h3>
-                    <p class="desc-esp-landing">Opciones desde 450 g/m² hasta 650 g/m² en toallas faciales, de mano, baño, medio baño, tapetes y toallas para alberca o spa.</p>
+                    <h3 class="titulo-esp-landing">Diversidad de Modelos</h3>
+                    <p class="desc-esp-landing">Opciones desde toallas faciales, de mano, baño, tapetes y toallas para alberca.</p>
                 </div>
 
                 <div class="tarjeta-especificacion-landing">
@@ -135,7 +128,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         </div>
     </section>
 
-    <!-- Bloque de Conversión y Contacto -->
     <section class="seccion seccion--linea-cta">
         <div class="contenedor contenedor--reducido">
             <div class="panel-cta-linea">

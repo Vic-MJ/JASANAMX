@@ -8,7 +8,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
 ?>
 
 <main class="principal-landing-linea">
-    <!-- Hero de Línea Signature -->
     <section class="seccion-linea-hero">
         <div class="linea-hero-fondo" style="background-image: url('assets/imagenes/hero_slide_01.webp');"></div>
         <div class="linea-hero-velo linea-hero-velo--signature"></div>
@@ -20,7 +19,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
             </nav>
 
             <div class="linea-hero-bloque-titular">
-                <span class="insignia-linea-destacada insignia-linea--signature">SASTRERÍA DE AUTOR &bull; ALTA PERSONALIZACIÓN</span>
                 <h1 class="titular-linea-hero">
                     JASANA Signature:<br>
                     <span class="titular-enfasis">La identidad exclusiva de tu hotel.</span>
@@ -47,7 +45,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         </div>
     </section>
 
-    <!-- Descripción completa oficial -->
     <section class="seccion seccion--linea-editorial">
         <div class="contenedor">
             <div class="cuadricula-editorial-linea">
@@ -79,8 +76,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
                 <div class="editorial-linea-col-der">
                     <div class="marco-imagen-editorial-linea">
                         <img src="assets/imagenes/linea_signature.webp" alt="Detalle de confección y acabados JASANA Signature" class="imagen-editorial-linea" loading="lazy">
-                        <div class="pie-foto-editorial">
-                            <span>Sastrería contemporánea y detalles de alta gama</span>
                         </div>
                     </div>
                 </div>
@@ -88,7 +83,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         </div>
     </section>
 
-    <!-- Cuadrícula de Especificaciones de Signature -->
     <section class="seccion seccion--linea-especificaciones">
         <div class="contenedor">
             <div class="cabecera-seccion cabecera-seccion--centrada">
@@ -135,7 +129,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         </div>
     </section>
 
-    <!-- Bloque de Conversión y Contacto -->
     <section class="seccion seccion--linea-cta">
         <div class="contenedor contenedor--reducido">
             <div class="panel-cta-linea">
