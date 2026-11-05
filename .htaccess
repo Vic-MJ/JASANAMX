@@ -4,9 +4,20 @@
 
     DirectoryIndex index.php
 
+    # 1. Redirigir dominio sin www hacia www.jasana.mx (Versión canónica unificada)
+    RewriteCond %{HTTP_HOST} ^jasana\.mx$ [NC]
+    RewriteRule ^(.*)$ https://www.jasana.mx/$1 [R=301,L]
+
+    # 2. Forzar HTTPS si se accede por HTTP en producción
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP_HOST} ^(www\.)?jasana\.mx$ [NC]
+    RewriteRule ^(.*)$ https://www.jasana.mx/$1 [R=301,L]
+
+    # 3. Redireccionar solicitudes que contengan /index.php hacia la raíz limpia /
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)index\.php [NC]
     RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
 
+    # 4. Permitir URLs limpias sin extensión .php (ej. /cycles_plantilla)
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}\.php -f
     RewriteRule ^([^\.]+)$ $1.php [NC,L]

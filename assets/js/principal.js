@@ -22,10 +22,18 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", actualizarEncabezado, { passive: true });
     actualizarEncabezado();
     const enlacesNavegacion = document.querySelectorAll(".enlace-menu[data-seccion], .enlace-movil[data-seccion]");
+    const todosEnlacesSeccion = document.querySelectorAll(".enlace-menu[data-seccion], .enlace-movil[data-seccion], .pie-lista-enlaces a[data-seccion]");
     const esPaginaInicio = document.body.classList.contains("pagina-inicio") || 
                            window.location.pathname === "/" || 
                            window.location.pathname.endsWith("/index.php") ||
                            window.location.pathname.endsWith("/");
+
+    const titulosSeccion = {
+        inicio: "Inicio | JASANA Hotel Wear",
+        lineas: "Líneas | JASANA Hotel Wear",
+        nosotros: "Nosotros | JASANA Hotel Wear",
+        contacto: "Contacto | JASANA Hotel Wear"
+    };
 
     function activarEnlace(seccionId) {
         enlacesNavegacion.forEach(function (enlace) {
@@ -37,6 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 enlace.removeAttribute("aria-current");
             }
         });
+
+        if (esPaginaInicio && seccionId && titulosSeccion[seccionId] && document.title !== titulosSeccion[seccionId]) {
+            document.title = titulosSeccion[seccionId];
+        }
     }
 
     if (esPaginaInicio) {
@@ -110,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        enlacesNavegacion.forEach(function (enlace) {
+        todosEnlacesSeccion.forEach(function (enlace) {
             enlace.addEventListener("click", function () {
                 const seccion = this.getAttribute("data-seccion");
                 if (seccion && seccion !== "tienda") {
@@ -120,8 +132,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     temporizadorBloqueo = setTimeout(function () {
                         bloqueoScrollSpyPorClic = false;
                         calcularSeccionActiva();
-                    }, 800);
+                    }, 1000);
                 }
+            });
+        });
+
+        const enlacesLogotipo = document.querySelectorAll(".enlace-logotipo, .pie-logotipo-enlace");
+        enlacesLogotipo.forEach(function (logo) {
+            logo.addEventListener("click", function () {
+                activarEnlace("inicio");
             });
         });
     } else {
@@ -531,9 +550,46 @@ document.addEventListener("DOMContentLoaded", function () {
         abrirModalPrivacidad();
     }
 
+    const modalTerminos = document.getElementById("modal-terminos");
+    const botonesAbrirTerminos = document.querySelectorAll("[data-abrir-terminos]");
+    const botonesCerrarTerminos = document.querySelectorAll("[data-cerrar-terminos]");
+
+    function abrirModalTerminos() {
+        if (!modalTerminos) return;
+        modalTerminos.classList.add("modal--abierto");
+        modalTerminos.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+    }
+
+    function cerrarModalTerminos() {
+        if (!modalTerminos) return;
+        modalTerminos.classList.remove("modal--abierto");
+        modalTerminos.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
+
+    botonesAbrirTerminos.forEach(function (boton) {
+        boton.addEventListener("click", function (evento) {
+            evento.preventDefault();
+            abrirModalTerminos();
+        });
+    });
+
+    botonesCerrarTerminos.forEach(function (boton) {
+        boton.addEventListener("click", function () {
+            cerrarModalTerminos();
+        });
+    });
+
+    if (window.location.hash === "#terminos") {
+        abrirModalTerminos();
+    }
+
     document.addEventListener("keydown", function (evento) {
         if (evento.key === "Escape") {
-            if (modalPrivacidad && modalPrivacidad.classList.contains("modal--abierto")) {
+            if (modalTerminos && modalTerminos.classList.contains("modal--abierto")) {
+                cerrarModalTerminos();
+            } else if (modalPrivacidad && modalPrivacidad.classList.contains("modal--abierto")) {
                 cerrarModalPrivacidad();
             } else if (modalInfoLinea && modalInfoLinea.classList.contains("modal--abierto")) {
                 cerrarModalInfo();
@@ -672,8 +728,11 @@ document.addEventListener("DOMContentLoaded", function () {
         window.caches.open('jasana-imagenes-v1').then(function (cache) {
             cache.addAll([
                 'assets/imagenes/hero_slide_01.webp',
+                'assets/imagenes/hero_slide_01_movil.webp',
                 'assets/imagenes/hero_slide_02.webp',
+                'assets/imagenes/hero_slide_02_movil.webp',
                 'assets/imagenes/hero_slide_03.webp',
+                'assets/imagenes/hero_slide_03_movil.webp',
                 'assets/imagenes/logo_blanco.webp',
                 'assets/imagenes/logo_oscuro.webp'
             ]).catch(function () {});

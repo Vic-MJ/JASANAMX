@@ -1009,6 +1009,14 @@ button {
 .tarjeta-linea-cuerpo {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding-top: 20px;
+}
+
+.tarjeta-linea-info {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
 }
 
@@ -1018,6 +1026,16 @@ button {
     letter-spacing: 0.04em;
     color: var(--jasana-carbon);
     margin-bottom: 4px;
+}
+
+.tarjeta-linea-titulo a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transicion-estandar);
+}
+
+.tarjeta-linea-titulo a:hover {
+    color: var(--jasana-oro-oscuro);
 }
 
 .linea-acento-submarca {
@@ -1041,10 +1059,12 @@ button {
 }
 
 .tarjeta-linea-descripcion {
-    font-size: 14px;
-    color: rgba(40, 40, 39, 0.72);
-    margin-bottom: 16px;
-    line-height: 1.45;
+    font-size: 13.5px;
+    color: rgba(40, 40, 39, 0.74);
+    margin-bottom: 18px;
+    line-height: 1.5;
+    flex-grow: 1;
+    min-height: 60px;
 }
 
 .tarjeta-linea-flecha {
@@ -2739,17 +2759,116 @@ button {
     .panel-simulador-metricas {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .diapositiva[data-indice="0"] .diapositiva-imagen {
+        background-position: 33% center;
+    }
+
+    .diapositiva[data-indice="1"] .diapositiva-imagen {
+        background-position: 72% center;
+    }
+
+    .diapositiva[data-indice="2"] .diapositiva-imagen {
+        background-position: 48% center;
+    }
 }
 
 @media (max-width: 680px) {
-    .titular-hero {
-        font-size: clamp(28px, 7.5vw, 36px);
+    .seccion-hero {
+        height: 100svh;
+        height: 100dvh;
+        min-height: 580px;
+    }
+
+    .diapositiva[data-indice="0"] .diapositiva-imagen {
+        background-image: url('../imagenes/hero_slide_01_movil.webp') !important;
+        background-position: center top;
+    }
+
+    .diapositiva[data-indice="1"] .diapositiva-imagen {
+        background-image: url('../imagenes/hero_slide_02_movil.webp') !important;
+        background-position: center top;
+    }
+
+    .diapositiva[data-indice="2"] .diapositiva-imagen {
+        background-image: url('../imagenes/hero_slide_03_movil.webp') !important;
+        background-position: center top;
+    }
+
+    .diapositiva-velo--derecha,
+    .diapositiva-velo--izquierda {
+        background: linear-gradient(
+            to bottom,
+            rgba(24, 26, 24, 0.40) 0%,
+            rgba(24, 26, 24, 0.10) 25%,
+            rgba(24, 26, 24, 0.55) 60%,
+            rgba(24, 26, 24, 0.90) 100%
+        );
+    }
+
+    .contenedor-hero {
+        align-items: flex-end;
+        padding-top: calc(var(--altura-encabezado-inicial) + 10px);
+        padding-bottom: 90px;
+    }
+
+    .bloque-titular {
+        width: 100%;
+        max-width: 100%;
+        text-align: left;
     }
 
     .bloque-titular--derecha,
     .bloque-titular--izquierda {
         margin-left: 0;
         margin-right: 0;
+    }
+
+    .titular-hero {
+        font-size: clamp(27px, 7.2vw, 34px);
+        line-height: 1.12;
+        margin-bottom: 12px;
+        text-shadow: 0 2px 14px rgba(24, 26, 24, 0.7);
+    }
+
+    .bajada-hero-editorial {
+        font-size: 14.5px;
+        line-height: 1.4;
+        margin-top: 8px;
+        margin-bottom: 18px;
+        color: rgba(255, 252, 249, 0.92);
+        text-shadow: 0 1px 8px rgba(24, 26, 24, 0.7);
+    }
+
+    .grupo-acciones-hero {
+        margin-bottom: 0;
+    }
+
+    .boton-cta-hero {
+        padding: 10px 22px;
+        font-size: 11.5px;
+        letter-spacing: 0.08em;
+    }
+
+    .controles-deslizador {
+        bottom: 24px;
+    }
+
+    .indicadores-editorial {
+        gap: 14px;
+    }
+
+    .indicador-item {
+        gap: 8px;
+        padding: 4px 0;
+    }
+
+    .indicador-numero {
+        font-size: 12px;
+    }
+
+    .indicador-linea {
+        width: 32px;
     }
 
     .boton-cta--encabezado {
@@ -2802,5 +2921,782 @@ button {
 
     .panel-simulador-metricas {
         grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==========================================================================
+   MEJORAS DE CONTACTO & PIE DE PÁGINA (OCTUBRE/NOVIEMBRE 2026)
+   ========================================================================== */
+.pie-contenedor {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.3fr auto;
+    align-items: start;
+    gap: clamp(24px, 3.5vw, 48px);
+}
+
+.pie-columna-marca {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pie-razon-social {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--jasana-carbon);
+    margin-top: 4px;
+}
+
+.pie-slogan-marca {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(40, 40, 39, 0.7);
+    max-width: 320px;
+}
+
+.pie-titulo-seccion {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--jasana-oro-oscuro);
+    margin-bottom: 16px;
+}
+
+.pie-columna-contacto {
+    display: flex;
+    flex-direction: column;
+}
+
+.pie-lista-contacto {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pie-enlace-contacto {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--jasana-carbon);
+    text-decoration: none;
+    transition: var(--transicion-estandar);
+}
+
+.pie-enlace-contacto:hover {
+    color: var(--jasana-oro-oscuro);
+    transform: translateX(2px);
+}
+
+.pie-enlace-contacto--whatsapp {
+    color: #128C7E;
+    font-weight: 600;
+}
+
+.pie-enlace-contacto--whatsapp:hover {
+    color: #075E54;
+}
+
+.pie-horario {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(40, 40, 39, 0.65);
+    margin-top: 4px;
+}
+
+.pie-contenedor-inferior {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(200, 193, 186, 0.45);
+}
+
+.pie-legales {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* ==========================================================================
+   SECCIÓN DE CONTACTO FINAL / CTA FINAL
+   ========================================================================== */
+.cta-encabezado-bloque {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 36px;
+}
+
+.subtitulo-etiqueta--dorado {
+    color: var(--jasana-oro-claro);
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 14px;
+}
+
+.cta-descripcion {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.55;
+    color: rgba(255, 252, 249, 0.9);
+    margin-top: 14px;
+}
+
+.cta-acciones-principales {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+}
+
+.boton-cta--whatsapp {
+    background-color: #25D366;
+    color: #FFFFFF !important;
+    border: 1px solid #25D366;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.boton-cta--whatsapp:hover {
+    background-color: #1EBE5D;
+    border-color: #1EBE5D;
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+}
+
+.boton-cta--whatsapp-sm {
+    background-color: #25D366;
+    color: #FFFFFF !important;
+    font-size: 11px;
+    padding: 8px 14px;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transicion-estandar);
+}
+
+.boton-cta--whatsapp-sm:hover {
+    background-color: #1EBE5D;
+    transform: translateY(-1px);
+}
+
+.boton-cta--borde-claro {
+    background: transparent;
+    color: var(--jasana-blanco-papel);
+    border: 1px solid rgba(255, 252, 249, 0.5);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.boton-cta--borde-claro:hover {
+    background: rgba(255, 252, 249, 0.15);
+    border-color: var(--jasana-blanco-papel);
+    color: var(--jasana-blanco-papel);
+    transform: translateY(-2px);
+}
+
+.cta-canales-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: rgba(24, 26, 24, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 252, 249, 0.18);
+    border-radius: 12px;
+    padding: 24px 32px;
+    gap: 20px;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.cta-canal-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cta-canal-etiqueta {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--jasana-oro-claro);
+}
+
+.cta-canal-valor {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--jasana-blanco-papel);
+    text-decoration: none;
+    transition: var(--transicion-estandar);
+}
+
+a.cta-canal-valor:hover {
+    color: var(--jasana-oro);
+    text-decoration: underline;
+}
+
+.cta-canal-valor--texto {
+    font-size: 12.5px;
+    color: rgba(255, 252, 249, 0.85);
+}
+
+.cta-canal-separador {
+    width: 1px;
+    height: 100%;
+    background-color: rgba(255, 252, 249, 0.15);
+    display: none;
+}
+
+/* ==========================================================================
+   BOTONES Y ACCIONES EN TARJETAS DE LÍNEAS (HOME)
+   ========================================================================== */
+.tarjeta-linea-acciones {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tarjeta-linea-botones {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+}
+
+.tarjeta-linea-botones--individual {
+    grid-template-columns: 1fr;
+}
+
+.tarjeta-linea-botones--doble {
+    grid-template-columns: 1fr 1fr;
+}
+
+.boton-tarjeta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 10px;
+    font-family: var(--fuente-principal);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.boton-tarjeta--completo {
+    width: 100%;
+}
+
+/* Sólido: Carbón refinado de JASANA */
+.boton-tarjeta--solido {
+    background-color: var(--jasana-carbon);
+    color: var(--jasana-blanco-papel) !important;
+    border: 1px solid var(--jasana-carbon);
+}
+
+.boton-tarjeta--solido:hover {
+    background-color: var(--jasana-oro-oscuro);
+    border-color: var(--jasana-oro-oscuro);
+    color: var(--jasana-blanco-papel) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(40, 40, 39, 0.16);
+}
+
+/* WhatsApp: Verde bosque / esmeralda de lujo */
+.boton-tarjeta--whatsapp {
+    background-color: #1a7f4b;
+    border: 1px solid #1a7f4b;
+    color: #ffffff !important;
+}
+
+.boton-tarjeta--whatsapp svg {
+    flex-shrink: 0;
+}
+
+.boton-tarjeta--whatsapp:hover {
+    background-color: #14643b;
+    border-color: #14643b;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(26, 127, 75, 0.28);
+}
+
+/* Borde: Sutil, equilibrado */
+.boton-tarjeta--borde {
+    background-color: transparent;
+    color: var(--jasana-carbon) !important;
+    border: 1.2px solid rgba(40, 40, 39, 0.35);
+}
+
+.boton-tarjeta--borde:hover {
+    background-color: var(--jasana-carbon);
+    border-color: var(--jasana-carbon);
+    color: var(--jasana-blanco-papel) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(40, 40, 39, 0.12);
+}
+
+/* Pie de tarjeta con separador sutil y enlace a la landing page */
+.tarjeta-linea-pie {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 10px;
+    border-top: 1px solid rgba(40, 40, 39, 0.08);
+}
+
+.enlace-tarjeta-landing {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--jasana-oro-oscuro);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transicion-estandar);
+}
+
+.enlace-tarjeta-landing svg {
+    transition: transform 0.25s ease;
+}
+
+.enlace-tarjeta-landing:hover {
+    color: var(--jasana-carbon);
+}
+
+.enlace-tarjeta-landing:hover svg {
+    transform: translateX(4px);
+}
+
+@media (max-width: 480px) {
+    .tarjeta-linea-botones--doble {
+        gap: 6px;
+    }
+    .boton-tarjeta {
+        font-size: 10px;
+        padding: 0 6px;
+        letter-spacing: 0.03em;
+    }
+}
+
+@media (max-width: 360px) {
+    .tarjeta-linea-botones--doble {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   LANDING PAGES DE LÍNEAS (SIGNATURE, ESSENTIALS, BATH & BED)
+   ========================================================================== */
+.principal-landing-linea {
+    overflow-x: hidden;
+}
+
+.seccion-linea-hero {
+    position: relative;
+    padding-top: calc(var(--altura-encabezado-inicial) + 60px);
+    padding-bottom: 90px;
+    background-color: var(--jasana-negro);
+    overflow: hidden;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+}
+
+.linea-hero-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.42;
+    transform: scale(1.02);
+    transition: transform 6s ease;
+}
+
+.linea-hero-velo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(24, 26, 24, 0.95) 0%, rgba(24, 26, 24, 0.6) 50%, rgba(24, 26, 24, 0.75) 100%);
+}
+
+.linea-hero-velo--signature {
+    background: linear-gradient(135deg, rgba(66, 29, 40, 0.75) 0%, rgba(24, 26, 24, 0.9) 100%),
+                linear-gradient(to top, rgba(24, 26, 24, 0.95) 0%, transparent 50%);
+}
+
+.linea-hero-velo--essentials {
+    background: linear-gradient(135deg, rgba(72, 77, 59, 0.75) 0%, rgba(24, 26, 24, 0.9) 100%),
+                linear-gradient(to top, rgba(24, 26, 24, 0.95) 0%, transparent 50%);
+}
+
+.linea-hero-velo--bath {
+    background: linear-gradient(135deg, rgba(128, 113, 100, 0.75) 0%, rgba(24, 26, 24, 0.9) 100%),
+                linear-gradient(to top, rgba(24, 26, 24, 0.95) 0%, transparent 50%);
+}
+
+.linea-hero-contenedor {
+    position: relative;
+    z-index: 10;
+}
+
+.linea-miga-pan {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255, 252, 249, 0.75);
+    margin-bottom: 24px;
+}
+
+.linea-miga-pan a {
+    color: var(--jasana-blanco-papel);
+    text-decoration: none;
+    transition: var(--transicion-estandar);
+}
+
+.linea-miga-pan a:hover {
+    color: var(--jasana-oro-claro);
+}
+
+.separador-miga {
+    opacity: 0.5;
+}
+
+.miga-actual {
+    color: var(--jasana-oro-claro);
+    font-weight: 500;
+}
+
+.linea-hero-bloque-titular {
+    max-width: 860px;
+    color: var(--jasana-blanco-papel);
+}
+
+.insignia-linea-destacada {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    margin-bottom: 20px;
+    background: rgba(255, 252, 249, 0.12);
+    border: 1px solid rgba(255, 252, 249, 0.25);
+    color: var(--jasana-blanco-papel);
+}
+
+.insignia-linea--signature {
+    background: rgba(105, 40, 58, 0.5);
+    border-color: rgba(105, 40, 58, 0.8);
+}
+
+.insignia-linea--essentials {
+    background: rgba(112, 122, 90, 0.5);
+    border-color: rgba(112, 122, 90, 0.8);
+}
+
+.insignia-linea--bath {
+    background: rgba(155, 141, 127, 0.5);
+    border-color: rgba(155, 141, 127, 0.8);
+}
+
+.titular-linea-hero {
+    font-size: clamp(38px, 4.5vw, 62px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--jasana-blanco-papel);
+}
+
+.bajada-linea-hero {
+    font-size: clamp(17px, 1.4vw, 21px);
+    line-height: 1.55;
+    color: rgba(255, 252, 249, 0.9);
+    margin-bottom: 34px;
+    max-width: 680px;
+}
+
+.linea-hero-acciones {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   DESCRIPCIÓN EDITORIAL COMPLETA (PÁGINA DE LÍNEA)
+   ========================================================================== */
+.seccion--linea-editorial {
+    background-color: var(--jasana-blanco-papel);
+    padding: clamp(60px, 7vw, 100px) 0;
+}
+
+.cuadricula-editorial-linea {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(36px, 5vw, 72px);
+    align-items: center;
+}
+
+.subtitulo-etiqueta--oliva {
+    color: var(--jasana-oliva-oscuro);
+    letter-spacing: 0.16em;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.cuerpo-texto-editorial {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.parrafo-destacado-linea {
+    font-size: clamp(18px, 1.35vw, 21px);
+    line-height: 1.5;
+    color: var(--jasana-carbon);
+    font-weight: 500;
+}
+
+.cuerpo-texto-editorial p {
+    font-size: 15.5px;
+    line-height: 1.68;
+    color: rgba(40, 40, 39, 0.82);
+}
+
+.cita-autor-linea {
+    margin-top: 32px;
+    padding: 22px 28px;
+    border-left: 3px solid var(--jasana-borgona);
+    background-color: #FAF5F6;
+    border-radius: 0 8px 8px 0;
+}
+
+.cita-autor-linea--oliva {
+    border-left-color: var(--jasana-oliva);
+    background-color: #F7F8F4;
+}
+
+.cita-autor-linea--bath {
+    border-left-color: var(--jasana-oro-oscuro);
+    background-color: #F8F6F4;
+}
+
+.cita-autor-linea blockquote {
+    font-family: var(--fuente-serif);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--jasana-carbon);
+}
+
+.marco-imagen-editorial-linea {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra-elevada);
+}
+
+.imagen-editorial-linea {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.marco-imagen-editorial-linea:hover .imagen-editorial-linea {
+    transform: scale(1.03);
+}
+
+.pie-foto-editorial {
+    padding: 14px 20px;
+    background-color: var(--jasana-carbon);
+    color: var(--jasana-oro-claro);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+/* ==========================================================================
+   ESPECIFICACIONES DE LÍNEAS
+   ========================================================================== */
+.seccion--linea-especificaciones {
+    background-color: #FAF7F2;
+    border-top: 1px solid rgba(200, 193, 186, 0.4);
+    border-bottom: 1px solid rgba(200, 193, 186, 0.4);
+    padding: clamp(60px, 7vw, 90px) 0;
+}
+
+.cuadricula-especificaciones-landing {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.tarjeta-especificacion-landing {
+    background: #FFFFFF;
+    border: 1px solid rgba(200, 193, 186, 0.5);
+    border-radius: 8px;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: var(--transicion-estandar);
+}
+
+.tarjeta-especificacion-landing:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-suave);
+    border-color: var(--jasana-oro);
+}
+
+.icono-especificacion-landing {
+    color: var(--jasana-borgona);
+}
+
+.icono-especificacion-landing--oliva {
+    color: var(--jasana-oliva);
+}
+
+.icono-especificacion-landing--bath {
+    color: var(--jasana-oro-oscuro);
+}
+
+.titulo-esp-landing {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--jasana-carbon);
+}
+
+.desc-esp-landing {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: rgba(40, 40, 39, 0.75);
+}
+
+/* ==========================================================================
+   BLOQUE CTA FINAL DE LÍNEA
+   ========================================================================== */
+.seccion--linea-cta {
+    background-color: var(--jasana-blanco-papel);
+    padding: clamp(60px, 7vw, 90px) 0;
+}
+
+.panel-cta-linea {
+    background: linear-gradient(135deg, #1F221F 0%, #141614 100%);
+    border-radius: 16px;
+    padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px);
+    text-align: center;
+    color: var(--jasana-blanco-papel);
+    box-shadow: var(--sombra-elevada);
+}
+
+.titulo-cta-linea {
+    font-size: clamp(28px, 3.2vw, 44px);
+    line-height: 1.2;
+    margin: 16px 0 16px;
+}
+
+.parrafo-cta-linea {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 252, 249, 0.85);
+    max-width: 620px;
+    margin: 0 auto 36px;
+}
+
+.acciones-cta-linea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.linea-atencion-horario {
+    font-size: 12px;
+    color: rgba(255, 252, 249, 0.6);
+    border-top: 1px solid rgba(255, 252, 249, 0.12);
+    padding-top: 20px;
+    margin-top: 12px;
+}
+
+/* ==========================================================================
+   RESPONSIVE PARA PIE, CONTACTO Y LANDINGS
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .cuadricula-especificaciones-landing {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cta-canales-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pie-contenedor {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .cuadricula-editorial-linea {
+        grid-template-columns: 1fr;
+    }
+
+    .cuadricula-especificaciones-landing {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-canales-info {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .pie-contenedor {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .pie-legales {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
 }
