@@ -52,7 +52,24 @@
 
     <div class="controles-deslizador">
         <div class="contenedor controles-contenedor">
-            <div class="indicadores-editorial" id="indicadores-editorial">
+            <div class="indicadores-editorial" id="indicadores-editorial" role="group" aria-label="Controles del carrusel">
+                <!-- Tooltip informativo tras clics continuos -->
+                <div class="tooltip-pausa-hero" id="tooltip-pausa-hero" role="tooltip" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <rect x="5" y="4" width="4" height="16" rx="1"></rect>
+                        <rect x="15" y="4" width="4" height="16" rx="1"></rect>
+                    </svg>
+                    <span>Para pausar, mantén presionado aquí</span>
+                </div>
+
+                <!-- Insignia visual sutil cuando se mantiene presionado -->
+                <div class="insignia-pausa-hero" id="insignia-pausa-hero" role="status" aria-hidden="true">
+                    <span class="icono-pausa-barras" aria-hidden="true">
+                        <span></span><span></span>
+                    </span>
+                    <span>Pausado</span>
+                </div>
+
                 <button type="button" class="indicador-item activo" data-diapositiva="0" aria-label="Ver diapositiva 1">
                     <span class="indicador-numero">01</span>
                     <span class="indicador-linea"><span class="indicador-progreso"></span></span>

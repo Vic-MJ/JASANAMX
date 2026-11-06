@@ -715,6 +715,10 @@ button {
     display: flex;
     align-items: center;
     gap: 20px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .indicador-item {
@@ -724,6 +728,7 @@ button {
     color: rgba(255, 252, 249, 0.5);
     transition: color 0.3s ease;
     padding: 6px 0;
+    cursor: pointer;
 }
 
 .indicador-item:hover,
@@ -744,6 +749,7 @@ button {
     position: relative;
     overflow: hidden;
     display: inline-block;
+    transition: box-shadow 0.25s ease;
 }
 
 .indicador-progreso {
@@ -760,12 +766,151 @@ button {
     animation: progresoHero 7s linear forwards;
 }
 
+/* Pausar la barra de progreso mientras se mantiene el clic */
+.indicadores-editorial.en-pausa .indicador-item.activo .indicador-progreso {
+    animation-play-state: paused !important;
+}
+
+.indicadores-editorial.en-pausa .indicador-item.activo .indicador-linea {
+    box-shadow: 0 0 10px rgba(255, 252, 249, 0.65);
+}
+
+/* Tooltip educativo al hacer 3 clics rápidos */
+.tooltip-pausa-hero {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(24, 26, 24, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(196, 164, 130, 0.45);
+    color: var(--jasana-blanco-papel);
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 40;
+}
+
+.tooltip-pausa-hero::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(24, 26, 24, 0.94);
+}
+
+.tooltip-pausa-hero.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.tooltip-pausa-hero svg {
+    color: var(--jasana-oro-claro);
+    flex-shrink: 0;
+}
+
+/* Insignia visual cuando se mantiene presionado (Pausado) */
+.insignia-pausa-hero {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(40, 40, 39, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 252, 249, 0.3);
+    color: var(--jasana-blanco-papel);
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 40;
+}
+
+.icono-pausa-barras {
+    display: inline-flex;
+    gap: 3px;
+    height: 10px;
+    align-items: center;
+}
+
+.icono-pausa-barras span {
+    width: 2.5px;
+    height: 10px;
+    background-color: var(--jasana-oro-claro);
+    border-radius: 1px;
+}
+
+.indicadores-editorial.en-pausa .insignia-pausa-hero {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
 @keyframes progresoHero {
     from {
         width: 0%;
     }
     to {
         width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .tooltip-pausa-hero {
+        font-size: 10.5px;
+        padding: 6px 12px;
+        max-width: 250px;
+        white-space: normal;
+        text-align: center;
+        left: 0;
+        transform: translateY(6px);
+    }
+
+    .tooltip-pausa-hero::after {
+        left: 32px;
+        transform: none;
+    }
+
+    .tooltip-pausa-hero.visible {
+        transform: translateY(0);
+    }
+
+    .insignia-pausa-hero {
+        left: 0;
+        transform: translateY(6px);
+    }
+
+    .indicadores-editorial.en-pausa .insignia-pausa-hero {
+        transform: translateY(0);
     }
 }
 

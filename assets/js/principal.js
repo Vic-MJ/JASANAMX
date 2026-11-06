@@ -174,11 +174,89 @@ document.addEventListener("DOMContentLoaded", function () {
     const botonAnterior = document.getElementById("deslizador-anterior");
     const botonSiguiente = document.getElementById("deslizador-siguiente");
     const deslizadorHero = document.getElementById("deslizador-hero");
+    const indicadoresContenedor = document.getElementById("indicadores-editorial");
+    const tooltipPausa = document.getElementById("tooltip-pausa-hero");
+
     let indiceActual = 0;
     let temporizadorHero = null;
     let temporizadorSaliente = null;
+    let tiempoInicioSlide = Date.now();
+    let tiempoRestante = 7000;
     const duracionDiapositiva = 7000;
     const duracionCrossfade = 1450;
+
+    let estaPausado = false;
+    let esPresionSostenida = false;
+    let tiempoInicioPresion = 0;
+    let contadorClicksPausa = 0;
+    let temporizadorResetClicks = null;
+    let temporizadorOcultarTooltip = null;
+
+    function mostrarTooltipPausa() {
+        if (!tooltipPausa) return;
+        tooltipPausa.classList.add("visible");
+        tooltipPausa.setAttribute("aria-hidden", "false");
+
+        if (temporizadorOcultarTooltip) clearTimeout(temporizadorOcultarTooltip);
+        temporizadorOcultarTooltip = setTimeout(function () {
+            ocultarTooltipPausa();
+        }, 3800);
+    }
+
+    function ocultarTooltipPausa() {
+        if (!tooltipPausa) return;
+        tooltipPausa.classList.remove("visible");
+        tooltipPausa.setAttribute("aria-hidden", "true");
+        if (temporizadorOcultarTooltip) {
+            clearTimeout(temporizadorOcultarTooltip);
+            temporizadorOcultarTooltip = null;
+        }
+    }
+
+    function registrarClickIndicadores() {
+        contadorClicksPausa++;
+        if (temporizadorResetClicks) clearTimeout(temporizadorResetClicks);
+
+        // Si se realizan 3 clics en la barra de transcurso, mostrar ayuda
+        if (contadorClicksPausa >= 3) {
+            mostrarTooltipPausa();
+            contadorClicksPausa = 0;
+        } else {
+            temporizadorResetClicks = setTimeout(function () {
+                contadorClicksPausa = 0;
+            }, 2400);
+        }
+    }
+
+    function pausarCarrusel() {
+        if (estaPausado || !diapositivas.length) return;
+        estaPausado = true;
+
+        // Calcular milisegundos restantes exactos del slide actual
+        const transcurrido = Date.now() - tiempoInicioSlide;
+        tiempoRestante = Math.max(300, tiempoRestante - transcurrido);
+
+        detenerTemporizador();
+
+        if (indicadoresContenedor) {
+            indicadoresContenedor.classList.add("en-pausa");
+        }
+
+        ocultarTooltipPausa();
+    }
+
+    function reanudarCarrusel() {
+        if (!estaPausado || !diapositivas.length) return;
+        estaPausado = false;
+        esPresionSostenida = false;
+
+        if (indicadoresContenedor) {
+            indicadoresContenedor.classList.remove("en-pausa");
+        }
+
+        // Reanudar a partir del tiempo restante exacto
+        iniciarTemporizador(tiempoRestante);
+    }
 
     function mostrarDiapositiva(nuevoIndice) {
         if (!diapositivas.length || nuevoIndice === indiceActual) return;
@@ -209,6 +287,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         indiceActual = nuevoIndice;
 
+        // Resetear estado de pausa y tiempo del nuevo slide
+        estaPausado = false;
+        if (indicadoresContenedor) {
+            indicadoresContenedor.classList.remove("en-pausa");
+        }
+        tiempoRestante = duracionDiapositiva;
+
         temporizadorSaliente = setTimeout(function () {
             diapositivas.forEach(function (d) {
                 if (!d.classList.contains("diapositiva--activa")) {
@@ -229,26 +314,78 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarDiapositiva(nuevoIndice);
     }
 
-    function iniciarTemporizador() {
+    function iniciarTemporizador(tiempo) {
         if (!diapositivas.length) return;
         detenerTemporizador();
-        temporizadorHero = setInterval(siguienteDiapositiva, duracionDiapositiva);
+        
+        tiempoRestante = (typeof tiempo === "number") ? tiempo : duracionDiapositiva;
+        tiempoInicioSlide = Date.now();
+
+        temporizadorHero = setTimeout(function () {
+            siguienteDiapositiva();
+            iniciarTemporizador(duracionDiapositiva);
+        }, tiempoRestante);
     }
 
     function detenerTemporizador() {
         if (temporizadorHero) {
-            clearInterval(temporizadorHero);
+            clearTimeout(temporizadorHero);
             temporizadorHero = null;
         }
     }
 
     if (diapositivas.length) {
+        // Pausar al mantener presionado en la barra de transcurso
+        if (indicadoresContenedor) {
+            function alPresionarInicio(e) {
+                if (e.pointerType === "mouse" && e.button !== 0) return; // Solo clic primario
+                tiempoInicioPresion = Date.now();
+                esPresionSostenida = true;
+                pausarCarrusel();
+            }
+
+            function alSoltarFin() {
+                if (esPresionSostenida || estaPausado) {
+                    reanudarCarrusel();
+                }
+            }
+
+            indicadoresContenedor.addEventListener("pointerdown", alPresionarInicio);
+            indicadoresContenedor.addEventListener("pointerup", alSoltarFin);
+            indicadoresContenedor.addEventListener("pointercancel", alSoltarFin);
+
+            indicadoresContenedor.addEventListener("pointerleave", function () {
+                if (esPresionSostenida) {
+                    alSoltarFin();
+                }
+            });
+
+            // Seguridad por si el cursor se libera fuera del contenedor
+            window.addEventListener("pointerup", function () {
+                if (esPresionSostenida) {
+                    alSoltarFin();
+                }
+            });
+
+            // Registrar clics para disparar el mensaje educativo tras 3 toques
+            indicadoresContenedor.addEventListener("click", function () {
+                registrarClickIndicadores();
+            });
+        }
+
+        // Cambio de diapositiva al dar clic rápido en cada número
         indicadores.forEach(function (indicador) {
-            indicador.addEventListener("click", function () {
+            indicador.addEventListener("click", function (e) {
+                const duracionPresion = Date.now() - tiempoInicioPresion;
+                // Si fue un clic sostenido para pausar (> 280ms), no cambiar de slide accidentalmente
+                if (duracionPresion > 280) {
+                    return;
+                }
+
                 const indice = parseInt(this.getAttribute("data-diapositiva"), 10);
                 if (indice !== indiceActual) {
                     mostrarDiapositiva(indice);
-                    iniciarTemporizador();
+                    iniciarTemporizador(duracionDiapositiva);
                 }
             });
         });
@@ -256,14 +393,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (botonSiguiente) {
             botonSiguiente.addEventListener("click", function () {
                 siguienteDiapositiva();
-                iniciarTemporizador();
+                iniciarTemporizador(duracionDiapositiva);
             });
         }
 
         if (botonAnterior) {
             botonAnterior.addEventListener("click", function () {
                 anteriorDiapositiva();
-                iniciarTemporizador();
+                iniciarTemporizador(duracionDiapositiva);
             });
         }
 
@@ -287,13 +424,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         } else {
                             anteriorDiapositiva();
                         }
-                        iniciarTemporizador();
+                        iniciarTemporizador(duracionDiapositiva);
                     }
                 }
             }, { passive: true });
         }
 
-        iniciarTemporizador();
+        iniciarTemporizador(duracionDiapositiva);
     }
 
     const modalCotizar = document.getElementById("modal-cotizar");
