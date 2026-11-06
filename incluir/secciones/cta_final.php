@@ -40,7 +40,7 @@
             <div class="cta-canal-separador"></div>
             <div class="cta-canal-item">
                 <span class="cta-canal-etiqueta">CORREO CORPORATIVO</span>
-                <a href="mailto:ventas@uniformesjasana.com" class="cta-canal-valor">ventas@uniformesjasana.com</a>
+                <a href="mailto:ventas@jasana.mx" class="cta-canal-valor">ventas@jasana.mx</a>
             </div>
             <div class="cta-canal-separador"></div>
             <div class="cta-canal-item">

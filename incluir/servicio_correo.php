@@ -1,107 +1,132 @@
 <?php
 define('JASANA_SMTP_HOST', 'ssl://mail.jasana.mx');
 define('JASANA_SMTP_PORT', 465);
-define('JASANA_SMTP_USER', 'info@jasana.mx');
-define('JASANA_SMTP_PASS', '%bP@!7mFQ8qc7eHm');
-define('JASANA_MAIL_FROM_EMAIL', 'info@uniformesjasana.com');
-define('JASANA_MAIL_FROM_NAME', 'Uniformes JASANA - Cotizaciones Web');
-define('JASANA_MAIL_DESTINATARIO_SIGNATURE', 'ventas@uniformesjasana.com');
-define('JASANA_MAIL_DESTINATARIO_ESSENTIALS', 'ventas.gdl@uniformesjasana.com');
-define('JASANA_MAIL_DESTINATARIO_BATH_BED', 'ventas.gdl@uniformesjasana.com');
+define('JASANA_SMTP_USER', 'sistemas@jasana.mx');
+define('JASANA_SMTP_PASS', 'J^379753145596uz');
+define('JASANA_SMTP_BACKUP_USER', 'info@jasana.mx');
+define('JASANA_SMTP_BACKUP_PASS', '%bP@!7mFQ8qc7eHm');
+define('JASANA_MAIL_FROM_EMAIL', 'sistemas@jasana.mx');
+define('JASANA_MAIL_FROM_NAME', 'Victor Montaño - JASANA');
+define('JASANA_MAIL_DESTINATARIO_SIGNATURE', 'ventas@jasana.mx');
+define('JASANA_MAIL_DESTINATARIO_ESSENTIALS', 'ventas.gdl@jasana.mx');
+define('JASANA_MAIL_DESTINATARIO_BATH_BED', 'ventas.gdl@jasana.mx');
 define('JASANA_MAIL_DESTINATARIO_CYCLES', 'info.cycles@jasana.mx');
-define('JASANA_MAIL_DESTINATARIO_GENERAL', 'ventas@uniformesjasana.com');
+define('JASANA_MAIL_DESTINATARIO_GENERAL', 'ventas@jasana.mx');
 
 function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '', $replyToEmail = null, $replyToNombre = null) {
     if (!is_array($destinatarios)) {
         $destinatarios = [$destinatarios];
     }
 
-    $context = stream_context_create([
-        'ssl' => [
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true
-        ]
-    ]);
+    $conectarYAutenticar = function ($usuario, $password) {
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ]);
 
-    $socket = @stream_socket_client(
-        JASANA_SMTP_HOST . ':' . JASANA_SMTP_PORT,
-        $errno,
-        $errstr,
-        15,
-        STREAM_CLIENT_CONNECT,
-        $context
-    );
+        $socket = @stream_socket_client(
+            JASANA_SMTP_HOST . ':' . JASANA_SMTP_PORT,
+            $errno,
+            $errstr,
+            15,
+            STREAM_CLIENT_CONNECT,
+            $context
+        );
 
-    if (!$socket) {
+        if (!$socket) {
+            return ['ok' => false, 'error' => "Error de conexión [$errno]: $errstr"];
+        }
+
+        stream_set_timeout($socket, 15);
+
+        $leer = function () use ($socket) {
+            $respuesta = '';
+            while (!feof($socket)) {
+                $linea = fgets($socket, 515);
+                if ($linea === false) break;
+                $respuesta .= $linea;
+                if (strlen($linea) >= 4 && substr($linea, 3, 1) === ' ') break;
+            }
+            return $respuesta;
+        };
+
+        $cmd = function ($c, $esperado = null) use ($socket, $leer) {
+            fputs($socket, $c . "\r\n");
+            $res = $leer();
+            $cod = substr($res, 0, 3);
+            if ($esperado !== null && $cod !== (string)$esperado) {
+                return ['ok' => false, 'codigo' => $cod, 'respuesta' => $res];
+            }
+            return ['ok' => true, 'codigo' => $cod, 'respuesta' => $res];
+        };
+
+        $bienvenida = $leer();
+        if (substr($bienvenida, 0, 3) !== '220') {
+            fclose($socket);
+            return ['ok' => false, 'error' => "Bienvenida inesperada: $bienvenida"];
+        }
+
+        $hostLocal = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : gethostname();
+        if (empty($hostLocal) || $hostLocal === 'localhost') $hostLocal = 'jasana.mx';
+        $r = $cmd('EHLO ' . $hostLocal, '250');
+        if (!$r['ok']) {
+            fclose($socket);
+            return ['ok' => false, 'error' => "Fallo EHLO: " . $r['respuesta']];
+        }
+
+        $r = $cmd('AUTH LOGIN', '334');
+        if (!$r['ok']) {
+            fclose($socket);
+            return ['ok' => false, 'error' => "Fallo al iniciar autenticación: " . $r['respuesta']];
+        }
+
+        $r = $cmd(base64_encode($usuario), '334');
+        if (!$r['ok']) {
+            fclose($socket);
+            return ['ok' => false, 'error' => "Usuario SMTP rechazado: " . $r['respuesta']];
+        }
+
+        $r = $cmd(base64_encode($password), '235');
+        if (!$r['ok']) {
+            fclose($socket);
+            return ['ok' => false, 'error' => "Contraseña SMTP rechazada: " . $r['respuesta']];
+        }
+
+        return ['ok' => true, 'socket' => $socket, 'cmd' => $cmd, 'leer' => $leer];
+    };
+
+    // Intentar con usuario principal (sistemas@jasana.mx)
+    $conexion = $conectarYAutenticar(JASANA_SMTP_USER, JASANA_SMTP_PASS);
+
+    // Si falló autenticación y existe cuenta de respaldo, usar respaldo manteniendo remitente sistemas@jasana.mx
+    if (!$conexion['ok'] && defined('JASANA_SMTP_BACKUP_USER') && !empty(JASANA_SMTP_BACKUP_USER)) {
+        $conexionBackup = $conectarYAutenticar(JASANA_SMTP_BACKUP_USER, JASANA_SMTP_BACKUP_PASS);
+        if ($conexionBackup['ok']) {
+            $conexion = $conexionBackup;
+        }
+    }
+
+    if (!$conexion['ok']) {
         return [
             'exito' => false,
-            'mensaje' => 'No fue posible conectar con el servidor de correo saliente.',
-            'error' => "Error de conexión [$errno]: $errstr"
+            'mensaje' => 'No fue posible autenticar con el servidor de correo saliente.',
+            'error' => $conexion['error']
         ];
     }
 
-    stream_set_timeout($socket, 15);
+    $socket = $conexion['socket'];
+    $enviarComando = $conexion['cmd'];
 
-    $leerRespuesta = function () use ($socket) {
-        $respuesta = '';
-        while (!feof($socket)) {
-            $linea = fgets($socket, 515);
-            if ($linea === false) break;
-            $respuesta .= $linea;
-            if (strlen($linea) >= 4 && substr($linea, 3, 1) === ' ') {
-                break;
-            }
-        }
-        return $respuesta;
-    };
-
-    $enviarComando = function ($cmd, $codigoEsperado = null) use ($socket, $leerRespuesta) {
-        fputs($socket, $cmd . "\r\n");
-        $res = $leerRespuesta();
-        $codigo = substr($res, 0, 3);
-        if ($codigoEsperado !== null && $codigo !== (string)$codigoEsperado) {
-            return ['ok' => false, 'codigo' => $codigo, 'respuesta' => $res];
-        }
-        return ['ok' => true, 'codigo' => $codigo, 'respuesta' => $res];
-    };
-
-    $bienvenida = $leerRespuesta();
-    if (substr($bienvenida, 0, 3) !== '220') {
-        fclose($socket);
-        return ['exito' => false, 'error' => "Bienvenida inesperada: $bienvenida"];
-    }
-
-    $hostLocal = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : gethostname();
-    if (empty($hostLocal) || $hostLocal === 'localhost') $hostLocal = 'jasana.mx';
-    $r = $enviarComando('EHLO ' . $hostLocal, '250');
-    if (!$r['ok']) {
-        fclose($socket);
-        return ['exito' => false, 'error' => "Fallo EHLO: " . $r['respuesta']];
-    }
-
-    $r = $enviarComando('AUTH LOGIN', '334');
-    if (!$r['ok']) {
-        fclose($socket);
-        return ['exito' => false, 'error' => "Fallo al iniciar autenticación: " . $r['respuesta']];
-    }
-
-    $r = $enviarComando(base64_encode(JASANA_SMTP_USER), '334');
-    if (!$r['ok']) {
-        fclose($socket);
-        return ['exito' => false, 'error' => "Usuario SMTP rechazado: " . $r['respuesta']];
-    }
-
-    $r = $enviarComando(base64_encode(JASANA_SMTP_PASS), '235');
-    if (!$r['ok']) {
-        fclose($socket);
-        return ['exito' => false, 'error' => "Contraseña SMTP rechazada: " . $r['respuesta']];
-    }
-
-    $envelopeSender = JASANA_SMTP_USER;
+    $envelopeSender = JASANA_MAIL_FROM_EMAIL;
     $r = $enviarComando('MAIL FROM:<' . $envelopeSender . '>', '250');
     if (!$r['ok']) {
-        $r = $enviarComando('MAIL FROM:<' . JASANA_MAIL_FROM_EMAIL . '>', '250');
+        $r = $enviarComando('MAIL FROM:<' . JASANA_SMTP_USER . '>', '250');
+        if (!$r['ok'] && defined('JASANA_SMTP_BACKUP_USER')) {
+            $r = $enviarComando('MAIL FROM:<' . JASANA_SMTP_BACKUP_USER . '>', '250');
+        }
         if (!$r['ok']) {
             fclose($socket);
             return ['exito' => false, 'error' => "Fallo MAIL FROM: " . $r['respuesta']];
@@ -119,7 +144,7 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
     }
 
     if ($aceptados === 0) {
-        $fallbackEmail = defined('JASANA_MAIL_DESTINATARIO_GENERAL') ? JASANA_MAIL_DESTINATARIO_GENERAL : 'ventas@uniformesjasana.com';
+        $fallbackEmail = defined('JASANA_MAIL_DESTINATARIO_GENERAL') ? JASANA_MAIL_DESTINATARIO_GENERAL : 'ventas@jasana.mx';
         $r = $enviarComando('RCPT TO:<' . $fallbackEmail . '>', '250');
         if ($r['ok']) {
             $aceptados++;
@@ -142,6 +167,7 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
     $headers = [];
     $headers[] = 'Date: ' . date('r');
     $headers[] = 'From: ' . $remitenteCodificado;
+    $headers[] = 'Sender: <' . JASANA_MAIL_FROM_EMAIL . '>';
     $headers[] = 'To: ' . implode(', ', array_map(function($d) { return '<' . trim($d) . '>'; }, $destinatarios));
     if ($replyToEmail) {
         if ($replyToNombre) {

@@ -657,7 +657,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (mensajeExito) mensajeExito.style.display = "none";
                     const mensajeFallo = (res.datos && res.datos.mensaje)
                         ? res.datos.mensaje
-                        : "Hubo un inconveniente al enviar la propuesta. Por favor intenta de nuevo o escríbenos directamente a info@jasana.mx";
+                        : "Hubo un inconveniente al enviar la propuesta. Por favor intenta de nuevo o escríbenos directamente a ventas@jasana.mx";
 
                     if (mensajeError) {
                         mensajeError.style.display = "block";

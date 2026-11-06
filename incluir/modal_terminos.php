@@ -40,7 +40,7 @@
                 <ul class="privacidad-lista">
                     <li><strong>Teléfono de atención:</strong> +52 33 3165 7220</li>
                     <li><strong>WhatsApp oficial:</strong> +52 33 1586 6302</li>
-                    <li><strong>Correo electrónico:</strong> ventas@uniformesjasana.com</li>
+                    <li><strong>Correo electrónico:</strong> ventas@jasana.mx</li>
                     <li><strong>Horario de servicio:</strong> Lunes a viernes de 9:00 a 18:00 h</li>
                 </ul>
             </div>

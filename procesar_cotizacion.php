@@ -255,7 +255,7 @@ if ($resultado['exito']) {
     http_response_code(500);
     echo json_encode([
         'exito' => false,
-        'mensaje' => 'Hubo un inconveniente al enviar la propuesta. Por favor intenta de nuevo o escríbenos directamente a ventas@uniformesjasana.com',
+        'mensaje' => 'Hubo un inconveniente al enviar la propuesta. Por favor intenta de nuevo o escríbenos directamente a ventas@jasana.mx',
         'detalle' => $resultado['error'] ?? null
     ]);
 }

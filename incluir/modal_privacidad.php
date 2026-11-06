@@ -107,7 +107,7 @@
                     </p>
                     <div class="privacidad-contacto-datos">
                         <p><strong>Comisionada:</strong> MA. DE JESÚS GARCÍA HERRERA, Comisionada de Protección de Datos Personales de UNIFORMES JASANA&reg;</p>
-                        <p><strong>Correo electrónico:</strong> <a href="mailto:finanzas@uniformesjasana.com">finanzas@uniformesjasana.com</a></p>
+                        <p><strong>Correo electrónico:</strong> <a href="mailto:finanzas@jasana.mx">finanzas@jasana.mx</a></p>
                         <p><strong>Domicilio:</strong> Flaviano Ramos Sur número 37, Colonia Centro, Tlajomulco de Zúñiga, Jalisco.</p>
                     </div>
                 </div>
@@ -158,8 +158,8 @@
                     <p><strong>Flaviano Ramos Sur número 37, Colonia Centro, Tlajomulco de Zúñiga, Jalisco.</strong></p>
                     <p><strong>RFC:</strong> CTJ201123HI2</p>
                     <p><strong>Teléfono:</strong> (33) 3165 7220</p>
-                    <p><strong>Sitio Web:</strong> <a href="https://www.uniformesjasana.com" target="_blank" rel="noopener">www.uniformesjasana.com</a></p>
-                    <p><strong>Correo electrónico:</strong> <a href="mailto:finanzas@uniformesjasana.com">finanzas@uniformesjasana.com</a></p>
+                    <p><strong>Sitio Web:</strong> <a href="https://www.jasana.mx" target="_blank" rel="noopener">www.jasana.mx</a></p>
+                    <p><strong>Correo electrónico:</strong> <a href="mailto:finanzas@jasana.mx">finanzas@jasana.mx</a></p>
                 </div>
                 <p style="margin-top: 10px;">
                     Puedes acudir en horarios hábiles y preguntar por nuestro Comisionado de Protección de Datos Personales, a quien podrás consultar todo lo referente a tus datos proporcionados y pedir informes sobre las Políticas y lineamientos diseñados.

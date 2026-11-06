@@ -153,7 +153,7 @@ require_once __DIR__ . '/incluir/navegacion.php';
                 </div>
 
                 <div class="linea-atencion-horario">
-                    <span>Horario de atención comercial: Lunes a viernes de 9:00 a 18:00 h &bull; ventas@uniformesjasana.com</span>
+                    <span>Horario de atención comercial: Lunes a viernes de 9:00 a 18:00 h &bull; ventas@jasana.mx</span>
                 </div>
             </div>
         </div>
