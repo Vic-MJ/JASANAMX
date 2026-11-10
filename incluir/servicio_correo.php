@@ -1,12 +1,12 @@
 <?php
 define('JASANA_SMTP_HOST', 'ssl://mail.jasana.mx');
 define('JASANA_SMTP_PORT', 465);
-define('JASANA_SMTP_USER', 'sistemas@jasana.mx');
-define('JASANA_SMTP_PASS', 'J^379753145596uz');
-define('JASANA_SMTP_BACKUP_USER', 'info@jasana.mx');
-define('JASANA_SMTP_BACKUP_PASS', '%bP@!7mFQ8qc7eHm');
-define('JASANA_MAIL_FROM_EMAIL', 'sistemas@jasana.mx');
-define('JASANA_MAIL_FROM_NAME', 'Victor Montaño - JASANA');
+define('JASANA_SMTP_USER', 'info@jasana.mx');
+define('JASANA_SMTP_PASS', '%bP@!7mFQ8qc7eHm');
+define('JASANA_SMTP_BACKUP_USER', 'sistemas@jasana.mx');
+define('JASANA_SMTP_BACKUP_PASS', 'J^379753145596uz');
+define('JASANA_MAIL_FROM_EMAIL', 'info@jasana.mx');
+define('JASANA_MAIL_FROM_NAME', 'JASANA Hotel Wear');
 define('JASANA_MAIL_DESTINATARIO_SIGNATURE', 'ventas@jasana.mx');
 define('JASANA_MAIL_DESTINATARIO_ESSENTIALS', 'ventas.gdl@jasana.mx');
 define('JASANA_MAIL_DESTINATARIO_BATH_BED', 'ventas.gdl@jasana.mx');
@@ -98,10 +98,8 @@ function enviarCorreoSMTP($destinatarios, $asunto, $cuerpoHtml, $cuerpoTexto = '
         return ['ok' => true, 'socket' => $socket, 'cmd' => $cmd, 'leer' => $leer];
     };
 
-    // Intentar con usuario principal (sistemas@jasana.mx)
     $conexion = $conectarYAutenticar(JASANA_SMTP_USER, JASANA_SMTP_PASS);
 
-    // Si falló autenticación y existe cuenta de respaldo, usar respaldo manteniendo remitente sistemas@jasana.mx
     if (!$conexion['ok'] && defined('JASANA_SMTP_BACKUP_USER') && !empty(JASANA_SMTP_BACKUP_USER)) {
         $conexionBackup = $conectarYAutenticar(JASANA_SMTP_BACKUP_USER, JASANA_SMTP_BACKUP_PASS);
         if ($conexionBackup['ok']) {

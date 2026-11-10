@@ -4,9 +4,8 @@ Allow: /assets/css/
 Allow: /assets/js/
 Allow: /assets/imagenes/
 
-# Proteger scripts internos y procesamiento de formularios
 Disallow: /incluir/
+Disallow: /api/
 Disallow: /procesar_cotizacion.php
 
-# Ubicación del mapa del sitio
 Sitemap: https://www.jasana.mx/sitemap.xml

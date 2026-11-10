@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once __DIR__ . '/incluir/servicio_correo.php';
+require_once dirname(__DIR__) . '/incluir/servicio_correo.php';
 
 $nombre = isset($_POST['nombre']) ? trim(strip_tags($_POST['nombre'])) : '';
 $hotel = isset($_POST['hotel']) ? trim(strip_tags($_POST['hotel'])) : '';
@@ -21,6 +21,12 @@ $linea = isset($_POST['linea']) ? trim(strip_tags($_POST['linea'])) : 'Signature
 $volumen = isset($_POST['volumen']) ? trim(strip_tags($_POST['volumen'])) : '';
 $mensaje = isset($_POST['mensaje']) ? trim(strip_tags($_POST['mensaje'])) : '';
 $etiquetas = isset($_POST['etiquetas']) ? trim(strip_tags($_POST['etiquetas'])) : '';
+$utm_source = isset($_POST['utm_source']) ? trim(strip_tags($_POST['utm_source'])) : '';
+$utm_medium = isset($_POST['utm_medium']) ? trim(strip_tags($_POST['utm_medium'])) : '';
+$utm_campaign = isset($_POST['utm_campaign']) ? trim(strip_tags($_POST['utm_campaign'])) : '';
+$utm_term = isset($_POST['utm_term']) ? trim(strip_tags($_POST['utm_term'])) : '';
+$utm_content = isset($_POST['utm_content']) ? trim(strip_tags($_POST['utm_content'])) : '';
+$pagina_origen = isset($_POST['pagina_origen']) ? trim(strip_tags($_POST['pagina_origen'])) : '';
 
 if (empty($nombre) || empty($hotel) || empty($correo) || empty($telefono)) {
     http_response_code(400);
@@ -173,6 +179,25 @@ HTML;
 
 $mensajeHtml = !empty($mensaje) ? nl2br(htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8')) : '<em style="color: #999;">Sin comentarios adicionales</em>';
 
+$datosCampanaHtml = '';
+if (!empty($utm_source) || !empty($utm_campaign) || !empty($pagina_origen)) {
+    $origenTxt = htmlspecialchars($utm_source ?: 'Directo / Orgánico');
+    $medioTxt = htmlspecialchars($utm_medium ?: '-');
+    $campanaTxt = htmlspecialchars($utm_campaign ?: '-');
+    $paginaTxt = htmlspecialchars($pagina_origen ?: '-');
+    $datosCampanaHtml = <<<HTML
+            <div style="background-color: #F3F5F2; border-left: 3px solid #1a7f4b; padding: 14px 18px; border-radius: 4px; margin-bottom: 24px; font-size: 12px; color: #2C2C2C;">
+              <strong style="text-transform: uppercase; letter-spacing: 0.08em; color: #1a7f4b; display: block; margin-bottom: 6px;">Origen de la conversión / Campaña</strong>
+              <table width="100%" cellpadding="2" cellspacing="0" border="0" style="font-size: 12px;">
+                <tr><td style="color: #666; width: 35%;">Fuente (utm_source):</td><td><strong>{$origenTxt}</strong></td></tr>
+                <tr><td style="color: #666;">Medio (utm_medium):</td><td>{$medioTxt}</td></tr>
+                <tr><td style="color: #666;">Campaña (utm_campaign):</td><td>{$campanaTxt}</td></tr>
+                <tr><td style="color: #666;">Página de captura:</td><td>{$paginaTxt}</td></tr>
+              </table>
+            </div>
+HTML;
+}
+
 $cuerpoHtml .= <<<HTML
             </table>
 
@@ -182,6 +207,8 @@ $cuerpoHtml .= <<<HTML
                 {$mensajeHtml}
               </p>
             </div>
+
+            {$datosCampanaHtml}
 
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>

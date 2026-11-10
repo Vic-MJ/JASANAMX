@@ -1,57 +1,42 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /
 
     DirectoryIndex index.php
 
-    # 1. Redirigir dominio sin www hacia www.jasana.mx (Versión canónica unificada)
     RewriteCond %{HTTP_HOST} ^jasana\.mx$ [NC]
     RewriteRule ^(.*)$ https://www.jasana.mx/$1 [R=301,L]
 
-    # 2. Forzar HTTPS si se accede por HTTP en producción
     RewriteCond %{HTTPS} off
     RewriteCond %{HTTP_HOST} ^(www\.)?jasana\.mx$ [NC]
     RewriteRule ^(.*)$ https://www.jasana.mx/$1 [R=301,L]
 
-    # 3. Redireccionar solicitudes que contengan /index.php hacia la raíz limpia /
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)index\.php [NC]
-    RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
+    RewriteRule ^AVISO_DE_PRIVACIDAD_JASANA\.pdf$ assets/documentos/AVISO_DE_PRIVACIDAD_JASANA.pdf [L]
+    RewriteRule ^(api/)?procesar_cotizacion(\.php)?$ api/procesar_cotizacion.php [L,QSA]
 
-    # 4. Permitir URLs limpias sin extensión .php (ej. /cycles_plantilla)
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME}\.php -f
-    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^(.*)$ index.php [L,QSA]
 </IfModule>
-
-# ==============================================================================
-# CACHÉ DE NAVEGADOR PARA IMÁGENES Y RECURSOS ESTÁTICOS
-# Las imágenes no se volverán a descargar en recargas ni en visitas posteriores
-# ==============================================================================
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 1 month"
-
-    # Imágenes: 1 año en caché local del navegador
     ExpiresByType image/webp "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType image/x-icon "access plus 1 year"
-
-    # Tipografías: 1 año
     ExpiresByType font/woff2 "access plus 1 year"
     ExpiresByType font/woff "access plus 1 year"
     ExpiresByType font/ttf "access plus 1 year"
-
-    # Estilos y Scripts: 1 mes
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
     ExpiresByType text/javascript "access plus 1 month"
 </IfModule>
 
 <IfModule mod_headers.c>
-    # Cabeceras Cache-Control con directiva 'immutable' para carga instantánea desde disco/memoria
     <FilesMatch "\.(webp|png|jpe?g|gif|ico|svg|woff2?|ttf)$">
         Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
@@ -60,8 +45,6 @@
         Header set Cache-Control "max-age=2592000, public"
     </FilesMatch>
 </IfModule>
-
-# Compresión GZIP para transferencia ultrarrápida
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
 </IfModule>

@@ -1,3 +1,37 @@
+(function protegerCodigo() {
+    document.addEventListener("contextmenu", function (e) {
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+        if (tag !== "input" && tag !== "textarea") {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "F12" || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        const esCtrl = e.ctrlKey || e.metaKey;
+        if (esCtrl) {
+            const tecla = e.key ? e.key.toLowerCase() : "";
+            const codigo = e.keyCode || e.which;
+            if (tecla === "u" || codigo === 85) {
+                e.preventDefault();
+                return false;
+            }
+            if (tecla === "s" || codigo === 83) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.shiftKey && (tecla === "i" || codigo === 73 || tecla === "j" || codigo === 74 || tecla === "c" || codigo === 67)) {
+                e.preventDefault();
+                return false;
+            }
+        }
+    });
+})();
+
 (function limpiarUrlIndex() {
     if (window.location.pathname.endsWith("/index.php") || window.location.pathname === "/index.php") {
         const rutaLimpia = window.location.pathname.replace(/\/index\.php$/, "/") || "/";
@@ -7,6 +41,45 @@
 })();
 
 document.addEventListener("DOMContentLoaded", function () {
+    function enviarEventoAnalytics(nombreEvento, parametros) {
+        window.dataLayer = window.dataLayer || [];
+        const payload = Object.assign({ event: nombreEvento }, parametros || {});
+        window.dataLayer.push(payload);
+    }
+
+    function capturarYPersistirUtms() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+        utmKeys.forEach(function (k) {
+            if (urlParams.has(k)) {
+                try {
+                    sessionStorage.setItem("jasana_" + k, urlParams.get(k));
+                } catch (e) {}
+            }
+        });
+        try {
+            if (!sessionStorage.getItem("jasana_pagina_origen")) {
+                sessionStorage.setItem("jasana_pagina_origen", window.location.pathname);
+            }
+        } catch (e) {}
+    }
+    capturarYPersistirUtms();
+
+    function inyectarUtmsEnFormulario() {
+        const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+        utmKeys.forEach(function (k) {
+            const input = document.getElementById(k);
+            if (input) {
+                const val = (new URLSearchParams(window.location.search)).get(k) || (sessionStorage ? sessionStorage.getItem("jasana_" + k) : "");
+                if (val) input.value = val;
+            }
+        });
+        const inputOrigen = document.getElementById("pagina_origen");
+        if (inputOrigen) {
+            inputOrigen.value = window.location.pathname;
+        }
+    }
+
     const encabezado = document.getElementById("encabezado-principal");
     const umbralDesplazamiento = 40;
 
@@ -194,13 +267,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function mostrarTooltipPausa() {
         if (!tooltipPausa) return;
+        if (temporizadorOcultarTooltip) clearTimeout(temporizadorOcultarTooltip);
+
+        tooltipPausa.style.display = "inline-flex";
+        void tooltipPausa.offsetWidth;
         tooltipPausa.classList.add("visible");
         tooltipPausa.setAttribute("aria-hidden", "false");
 
-        if (temporizadorOcultarTooltip) clearTimeout(temporizadorOcultarTooltip);
         temporizadorOcultarTooltip = setTimeout(function () {
             ocultarTooltipPausa();
-        }, 3800);
+        }, 4000);
     }
 
     function ocultarTooltipPausa() {
@@ -211,20 +287,24 @@ document.addEventListener("DOMContentLoaded", function () {
             clearTimeout(temporizadorOcultarTooltip);
             temporizadorOcultarTooltip = null;
         }
+        setTimeout(function () {
+            if (!tooltipPausa.classList.contains("visible")) {
+                tooltipPausa.style.display = "none";
+            }
+        }, 320);
     }
 
     function registrarClickIndicadores() {
         contadorClicksPausa++;
         if (temporizadorResetClicks) clearTimeout(temporizadorResetClicks);
 
-        // Si se realizan 3 clics en la barra de transcurso, mostrar ayuda
         if (contadorClicksPausa >= 3) {
             mostrarTooltipPausa();
             contadorClicksPausa = 0;
         } else {
             temporizadorResetClicks = setTimeout(function () {
                 contadorClicksPausa = 0;
-            }, 2400);
+            }, 2500);
         }
     }
 
@@ -232,7 +312,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (estaPausado || !diapositivas.length) return;
         estaPausado = true;
 
-        // Calcular milisegundos restantes exactos del slide actual
         const transcurrido = Date.now() - tiempoInicioSlide;
         tiempoRestante = Math.max(300, tiempoRestante - transcurrido);
 
@@ -240,6 +319,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (indicadoresContenedor) {
             indicadoresContenedor.classList.add("en-pausa");
+        }
+
+        const progresoActivo = document.querySelector(".indicador-item.activo .indicador-progreso");
+        if (progresoActivo) {
+            progresoActivo.style.animationPlayState = "paused";
         }
 
         ocultarTooltipPausa();
@@ -254,7 +338,11 @@ document.addEventListener("DOMContentLoaded", function () {
             indicadoresContenedor.classList.remove("en-pausa");
         }
 
-        // Reanudar a partir del tiempo restante exacto
+        const progresoActivo = document.querySelector(".indicador-item.activo .indicador-progreso");
+        if (progresoActivo) {
+            progresoActivo.style.animationPlayState = "running";
+        }
+
         iniciarTemporizador(tiempoRestante);
     }
 
@@ -282,12 +370,16 @@ document.addEventListener("DOMContentLoaded", function () {
         diapositivaNueva.classList.add("diapositiva--activa");
 
         indicadores.forEach(function (ind, i) {
-            ind.classList.toggle("activo", i === nuevoIndice);
+            const esActivo = i === nuevoIndice;
+            ind.classList.toggle("activo", esActivo);
+            const prog = ind.querySelector(".indicador-progreso");
+            if (prog) {
+                prog.style.animationPlayState = "running";
+            }
         });
 
         indiceActual = nuevoIndice;
 
-        // Resetear estado de pausa y tiempo del nuevo slide
         estaPausado = false;
         if (indicadoresContenedor) {
             indicadoresContenedor.classList.remove("en-pausa");
@@ -335,49 +427,51 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (diapositivas.length) {
-        // Pausar al mantener presionado en la barra de transcurso
         if (indicadoresContenedor) {
-            function alPresionarInicio(e) {
-                if (e.pointerType === "mouse" && e.button !== 0) return; // Solo clic primario
+            function alIniciarPresion(e) {
+                if (e.type === "mousedown" && e.button !== 0) return;
                 tiempoInicioPresion = Date.now();
                 esPresionSostenida = true;
                 pausarCarrusel();
             }
 
-            function alSoltarFin() {
+            function alTerminarPresion() {
                 if (esPresionSostenida || estaPausado) {
                     reanudarCarrusel();
                 }
             }
 
-            indicadoresContenedor.addEventListener("pointerdown", alPresionarInicio);
-            indicadoresContenedor.addEventListener("pointerup", alSoltarFin);
-            indicadoresContenedor.addEventListener("pointercancel", alSoltarFin);
-
+            indicadoresContenedor.addEventListener("pointerdown", alIniciarPresion);
+            indicadoresContenedor.addEventListener("pointerup", alTerminarPresion);
+            indicadoresContenedor.addEventListener("pointercancel", alTerminarPresion);
             indicadoresContenedor.addEventListener("pointerleave", function () {
-                if (esPresionSostenida) {
-                    alSoltarFin();
-                }
+                if (esPresionSostenida) alTerminarPresion();
             });
 
-            // Seguridad por si el cursor se libera fuera del contenedor
+            indicadoresContenedor.addEventListener("mousedown", alIniciarPresion);
+            indicadoresContenedor.addEventListener("mouseup", alTerminarPresion);
+            indicadoresContenedor.addEventListener("touchstart", alIniciarPresion, { passive: true });
+            indicadoresContenedor.addEventListener("touchend", alTerminarPresion, { passive: true });
+            indicadoresContenedor.addEventListener("touchcancel", alTerminarPresion, { passive: true });
+
             window.addEventListener("pointerup", function () {
-                if (esPresionSostenida) {
-                    alSoltarFin();
-                }
+                if (esPresionSostenida) alTerminarPresion();
+            });
+            window.addEventListener("mouseup", function () {
+                if (esPresionSostenida) alTerminarPresion();
+            });
+            window.addEventListener("touchend", function () {
+                if (esPresionSostenida) alTerminarPresion();
             });
 
-            // Registrar clics para disparar el mensaje educativo tras 3 toques
             indicadoresContenedor.addEventListener("click", function () {
                 registrarClickIndicadores();
             });
         }
 
-        // Cambio de diapositiva al dar clic rápido en cada número
         indicadores.forEach(function (indicador) {
             indicador.addEventListener("click", function (e) {
                 const duracionPresion = Date.now() - tiempoInicioPresion;
-                // Si fue un clic sostenido para pausar (> 280ms), no cambiar de slide accidentalmente
                 if (duracionPresion > 280) {
                     return;
                 }
@@ -543,6 +637,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!modalCotizar) return;
         const lineaElegida = lineaPrevia || (campoLinea ? campoLinea.value : "Signature");
         aplicarRetoquesLinea(lineaElegida);
+        inyectarUtmsEnFormulario();
+        enviarEventoAnalytics("abrir_cotizador", {
+            linea: lineaElegida,
+            pagina: window.location.pathname
+        });
         const mensajeExito = document.getElementById("mensaje-exito");
         const mensajeError = document.getElementById("mensaje-error");
         if (mensajeExito) mensajeExito.style.display = "none";
@@ -761,7 +860,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const datos = new FormData(formulario);
-            fetch(formulario.action || "procesar_cotizacion.php", {
+            fetch(formulario.action || "api/procesar_cotizacion.php", {
                 method: "POST",
                 body: datos
             })
@@ -778,6 +877,15 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(function (res) {
                 if (res.ok && res.datos && res.datos.exito === true) {
+                    enviarEventoAnalytics("generate_lead", {
+                        linea: datos.get("linea") || "Signature",
+                        hotel: datos.get("hotel") || "",
+                        ciudad: datos.get("ciudad") || "",
+                        utm_source: datos.get("utm_source") || "",
+                        utm_medium: datos.get("utm_medium") || "",
+                        utm_campaign: datos.get("utm_campaign") || "",
+                        pagina: window.location.pathname
+                    });
                     formulario.reset();
                     if (mensajeError) mensajeError.style.display = "none";
                     if (mensajeExito) {
@@ -860,7 +968,44 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Almacenamiento y precache persistente de imagenes criticas en navegador
+    document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp.com"]').forEach(function (enlace) {
+        enlace.addEventListener("click", function () {
+            enviarEventoAnalytics("click_whatsapp", {
+                destino: this.href,
+                texto: (this.textContent || "").trim(),
+                pagina: window.location.pathname
+            });
+        });
+    });
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(function (enlace) {
+        enlace.addEventListener("click", function () {
+            enviarEventoAnalytics("click_telefono", {
+                numero: this.href.replace("tel:", ""),
+                pagina: window.location.pathname
+            });
+        });
+    });
+
+    document.querySelectorAll('a[href*="tienda.jasana.mx"]').forEach(function (enlace) {
+        enlace.addEventListener("click", function () {
+            enviarEventoAnalytics("click_tienda", {
+                destino: this.href,
+                texto: (this.textContent || "").trim(),
+                pagina: window.location.pathname
+            });
+        });
+    });
+
+    document.querySelectorAll('a[href*="AVISO_DE_PRIVACIDAD"]').forEach(function (enlace) {
+        enlace.addEventListener("click", function () {
+            enviarEventoAnalytics("descargar_aviso_privacidad", {
+                archivo: "AVISO_DE_PRIVACIDAD_JASANA.pdf",
+                pagina: window.location.pathname
+            });
+        });
+    });
+
     if (window.caches) {
         window.caches.open('jasana-imagenes-v1').then(function (cache) {
             cache.addAll([

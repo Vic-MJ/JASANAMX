@@ -18,17 +18,16 @@
         </div>
 
         <div class="cuadricula-lineas">
-            <!-- 2.1 JASANA Signature -->
             <article class="tarjeta-linea tarjeta-linea--signature">
                 <div class="tarjeta-linea-imagen-marco">
-                    <a href="signature.php" aria-label="Ver landing de JASANA Signature">
+                    <a href="signature" aria-label="Ver landing de JASANA Signature">
                         <img src="assets/imagenes/linea_signature.webp" alt="JASANA Signature - Confección a la medida" class="tarjeta-linea-imagen" loading="lazy">
                         <span class="insignia-linea insignia-linea--signature">SIGNATURE</span>
                     </a>
                 </div>
                 <div class="tarjeta-linea-cuerpo">
                     <div class="tarjeta-linea-info">
-                        <h3 class="tarjeta-linea-titulo"><a href="signature.php">JASANA SIGNATURE</a></h3>
+                        <h3 class="tarjeta-linea-titulo"><a href="signature">JASANA SIGNATURE</a></h3>
                         <span class="linea-acento-submarca"></span>
                         <p class="tarjeta-linea-descripcion">Diseñamos uniformes exclusivos que reflejan la identidad de tu hotel y resisten las exigencias de su operación.</p>
                     </div>
@@ -40,7 +39,7 @@
                             </a>
                         </div>
                         <div class="tarjeta-linea-pie">
-                            <a href="signature.php" class="enlace-tarjeta-landing">
+                            <a href="signature" class="enlace-tarjeta-landing">
                                 <span>Conoce la línea</span>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -52,17 +51,16 @@
                 </div>
             </article>
 
-            <!-- 2.2 JASANA Essentials -->
             <article class="tarjeta-linea tarjeta-linea--essentials">
                 <div class="tarjeta-linea-imagen-marco">
-                    <a href="essentials.php" aria-label="Ver landing de JASANA Essentials">
+                    <a href="essentials" aria-label="Ver landing de JASANA Essentials">
                         <img src="assets/imagenes/linea_essentials.webp" alt="JASANA Essentials - Colecciones listas para entrega" class="tarjeta-linea-imagen" loading="lazy">
                         <span class="insignia-linea insignia-linea--essentials">ESSENTIALS</span>
                     </a>
                 </div>
                 <div class="tarjeta-linea-cuerpo">
                     <div class="tarjeta-linea-info">
-                        <h3 class="tarjeta-linea-titulo"><a href="essentials.php">JASANA ESSENTIALS</a></h3>
+                        <h3 class="tarjeta-linea-titulo"><a href="essentials">JASANA ESSENTIALS</a></h3>
                         <span class="linea-acento-submarca"></span>
                         <p class="tarjeta-linea-descripcion">Diseños seleccionados para hotelería y restaurantes. Elige los uniformes de tu equipo con facilidad y disponibilidad inmediata.</p>
                     </div>
@@ -78,7 +76,7 @@
                             </a>
                         </div>
                         <div class="tarjeta-linea-pie">
-                            <a href="essentials.php" class="enlace-tarjeta-landing">
+                            <a href="essentials" class="enlace-tarjeta-landing">
                                 <span>Conoce la línea</span>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -90,17 +88,16 @@
                 </div>
             </article>
 
-            <!-- 2.3 JASANA Bath & Bed -->
             <article class="tarjeta-linea tarjeta-linea--bath">
                 <div class="tarjeta-linea-imagen-marco">
-                    <a href="bath_bed.php" aria-label="Ver landing de JASANA Bath & Bed">
+                    <a href="bath_bed" aria-label="Ver landing de JASANA Bath & Bed">
                         <img src="assets/imagenes/linea_bath_bed.webp" alt="Bath & Bed - Blancos y toallas de alta gama" class="tarjeta-linea-imagen" loading="lazy">
                         <span class="insignia-linea insignia-linea--bath">BATH &amp; BED</span>
                     </a>
                 </div>
                 <div class="tarjeta-linea-cuerpo">
                     <div class="tarjeta-linea-info">
-                        <h3 class="tarjeta-linea-titulo"><a href="bath_bed.php">BATH &amp; BED</a></h3>
+                        <h3 class="tarjeta-linea-titulo"><a href="bath_bed">BATH &amp; BED</a></h3>
                         <span class="linea-acento-submarca"></span>
                         <p class="tarjeta-linea-descripcion">Toallas 100% algodón para hotelería, disponibles en diferentes gramajes y con opciones de personalización.</p>
                     </div>
@@ -115,7 +112,7 @@
                             </a>
                         </div>
                         <div class="tarjeta-linea-pie">
-                            <a href="bath_bed.php" class="enlace-tarjeta-landing">
+                            <a href="bath_bed" class="enlace-tarjeta-landing">
                                 <span>Conoce la línea</span>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>

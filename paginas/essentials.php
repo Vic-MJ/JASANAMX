@@ -1,10 +1,10 @@
 <?php
-$titulo_pagina = "JASANA Essentials - Colecciones Listas para Hotelería y Restaurantes";
+$titulo_pagina = "JASANA Essentials";
 $clase_cuerpo = "pagina-linea pagina-linea-essentials";
 $url_canonica = "https://www.jasana.mx/essentials";
 
-require_once __DIR__ . '/incluir/encabezado.php';
-require_once __DIR__ . '/incluir/navegacion.php';
+require_once dirname(__DIR__) . '/incluir/encabezado.php';
+require_once dirname(__DIR__) . '/incluir/navegacion.php';
 ?>
 
 <main class="principal-landing-linea">
@@ -49,7 +49,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         <div class="contenedor">
             <div class="cuadricula-editorial-linea">
                 <div class="editorial-linea-col-izq">
-                    <span class="subtitulo-etiqueta subtitulo-etiqueta--oliva">COLECCIÓN CURADA PARA OPERACIÓN CONTINUA</span>
                     <h2 class="titulo-editorial">
                         El equilibrio perfecto entre <span class="titulo-editorial--enfasis">imagen cuidada, confort y agilidad.</span>
                     </h2>
@@ -128,7 +127,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         </div>
     </section>
 
-    <!-- Bloque de Conversión y Contacto -->
     <section class="seccion seccion--linea-cta">
         <div class="contenedor contenedor--reducido">
             <div class="panel-cta-linea">
@@ -160,5 +158,5 @@ require_once __DIR__ . '/incluir/navegacion.php';
     </section>
 </main>
 
-<?php require_once __DIR__ . '/incluir/pie.php'; ?>
+<?php require_once dirname(__DIR__) . '/incluir/pie.php'; ?>
 

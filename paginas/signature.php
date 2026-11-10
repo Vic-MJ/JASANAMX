@@ -1,10 +1,10 @@
 <?php
-$titulo_pagina = "JASANA Signature - Sastrería de Autor y Uniformes Exclusivos";
+$titulo_pagina = "JASANA Signature";
 $clase_cuerpo = "pagina-linea pagina-linea-signature";
 $url_canonica = "https://www.jasana.mx/signature";
 
-require_once __DIR__ . '/incluir/encabezado.php';
-require_once __DIR__ . '/incluir/navegacion.php';
+require_once dirname(__DIR__) . '/incluir/encabezado.php';
+require_once dirname(__DIR__) . '/incluir/navegacion.php';
 ?>
 
 <main class="principal-landing-linea">
@@ -49,7 +49,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         <div class="contenedor">
             <div class="cuadricula-editorial-linea">
                 <div class="editorial-linea-col-izq">
-                    <span class="subtitulo-etiqueta subtitulo-etiqueta--dorado">CONCEPTO Y DESARROLLO DE AUTOR</span>
                     <h2 class="titulo-editorial">
                         Uniformes personalizados que conectan <span class="titulo-editorial--enfasis">identidad con operación real.</span>
                     </h2>
@@ -160,5 +159,5 @@ require_once __DIR__ . '/incluir/navegacion.php';
     </section>
 </main>
 
-<?php require_once __DIR__ . '/incluir/pie.php'; ?>
+<?php require_once dirname(__DIR__) . '/incluir/pie.php'; ?>
 

@@ -2,8 +2,8 @@
 $titulo_pagina = "Aviso de Privacidad";
 $clase_cuerpo = "pagina-privacidad";
 
-require_once __DIR__ . '/incluir/encabezado.php';
-require_once __DIR__ . '/incluir/navegacion.php';
+require_once dirname(__DIR__) . '/incluir/encabezado.php';
+require_once dirname(__DIR__) . '/incluir/navegacion.php';
 ?>
 
 <main class="seccion seccion--privacidad-pagina" style="padding-top: 140px; padding-bottom: 90px; background-color: var(--jasana-blanco-papel);">
@@ -21,7 +21,7 @@ require_once __DIR__ . '/incluir/navegacion.php';
 
         <div class="privacidad-cuerpo-lectura" style="max-height: none; overflow: visible; padding-right: 0;">
             <?php
-            $htmlModal = file_get_contents(__DIR__ . '/incluir/modal_privacidad.php');
+            $htmlModal = file_get_contents(dirname(__DIR__) . '/incluir/modales/modal_privacidad.php');
             if (preg_match('/<div class="privacidad-cuerpo-lectura">(.*?)<\/div>\s*<div class="privacidad-acciones-modal">/s', $htmlModal, $coincidencias)) {
                 echo $coincidencias[1];
             }
@@ -32,7 +32,7 @@ require_once __DIR__ . '/incluir/navegacion.php';
             <a href="./" class="boton-cta boton-cta--solido">
                 &larr; VOLVER AL INICIO
             </a>
-            <a href="AVISO_DE_PRIVACIDAD_JASANA.pdf" download="AVISO_DE_PRIVACIDAD_JASANA.pdf" class="enlace-descarga-pdf-opcional">
+            <a href="assets/documentos/AVISO_DE_PRIVACIDAD_JASANA.pdf" download="AVISO_DE_PRIVACIDAD_JASANA.pdf" class="enlace-descarga-pdf-opcional">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
@@ -44,4 +44,4 @@ require_once __DIR__ . '/incluir/navegacion.php';
     </div>
 </main>
 
-<?php require_once __DIR__ . '/incluir/pie.php'; ?>
+<?php require_once dirname(__DIR__) . '/incluir/pie.php'; ?>

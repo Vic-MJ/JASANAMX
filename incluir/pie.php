@@ -82,11 +82,11 @@
     </div>
 </footer>
 
-<?php require_once __DIR__ . '/modal_cotizacion.php'; ?>
-<?php require_once __DIR__ . '/modal_info_lineas.php'; ?>
-<?php require_once __DIR__ . '/modal_privacidad.php'; ?>
-<?php require_once __DIR__ . '/modal_terminos.php'; ?>
+<?php require_once __DIR__ . '/modales/modal_cotizacion.php'; ?>
+<?php require_once __DIR__ . '/modales/modal_info_lineas.php'; ?>
+<?php require_once __DIR__ . '/modales/modal_privacidad.php'; ?>
+<?php require_once __DIR__ . '/modales/modal_terminos.php'; ?>
 
-<script src="assets/js/principal.js"></script>
+<script src="assets/js/principal.min.js?v=<?php echo file_exists(__DIR__ . '/../assets/js/principal.min.js') ? filemtime(__DIR__ . '/../assets/js/principal.min.js') : '2.0'; ?>"></script>
 </body>
 </html>

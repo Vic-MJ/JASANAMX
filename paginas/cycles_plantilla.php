@@ -2,8 +2,8 @@
 $titulo_pagina = "CYCLES - Control Textil Inteligente RFID";
 $clase_cuerpo = "pagina-plantilla-cycles";
 
-require_once __DIR__ . '/incluir/encabezado.php';
-require_once __DIR__ . '/incluir/navegacion.php';
+require_once dirname(__DIR__) . '/incluir/encabezado.php';
+require_once dirname(__DIR__) . '/incluir/navegacion.php';
 ?>
 
 <section class="seccion-plantilla-hero">
@@ -182,4 +182,4 @@ require_once __DIR__ . '/incluir/navegacion.php';
     </div>
 </section>
 
-<?php require_once __DIR__ . '/incluir/pie.php'; ?>
+<?php require_once dirname(__DIR__) . '/incluir/pie.php'; ?>

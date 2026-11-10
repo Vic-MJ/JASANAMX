@@ -1,10 +1,10 @@
 <?php
-$titulo_pagina = "JASANA Bath & Bed - Toallas 100% Algodón y Lencería Hotelera";
+$titulo_pagina = "JASANA Bath & Bed";
 $clase_cuerpo = "pagina-linea pagina-linea-bath";
 $url_canonica = "https://www.jasana.mx/bath_bed";
 
-require_once __DIR__ . '/incluir/encabezado.php';
-require_once __DIR__ . '/incluir/navegacion.php';
+require_once dirname(__DIR__) . '/incluir/encabezado.php';
+require_once dirname(__DIR__) . '/incluir/navegacion.php';
 ?>
 
 <main class="principal-landing-linea">
@@ -49,7 +49,6 @@ require_once __DIR__ . '/incluir/navegacion.php';
         <div class="contenedor">
             <div class="cuadricula-editorial-linea">
                 <div class="editorial-linea-col-izq">
-                    <span class="subtitulo-etiqueta subtitulo-etiqueta--dorado">SUAVIDAD, ABSORCIÓN Y PRESENTACIÓN IMPECABLE</span>
                     <h2 class="titulo-editorial">
                         La experiencia sensorial que <span class="titulo-editorial--enfasis">define la estancia de tu huésped.</span>
                     </h2>
@@ -159,5 +158,5 @@ require_once __DIR__ . '/incluir/navegacion.php';
     </section>
 </main>
 
-<?php require_once __DIR__ . '/incluir/pie.php'; ?>
+<?php require_once dirname(__DIR__) . '/incluir/pie.php'; ?>
 

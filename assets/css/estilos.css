@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --jasana-oro: #9B8D7F;
     --jasana-oro-oscuro: #807164;
     --jasana-oro-claro: #DBCEC1;
@@ -711,6 +711,12 @@ button {
     justify-content: space-between;
 }
 
+.indicadores-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
 .indicadores-editorial {
     display: flex;
     align-items: center;
@@ -729,6 +735,9 @@ button {
     transition: color 0.3s ease;
     padding: 6px 0;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
 }
 
 .indicador-item:hover,
@@ -740,6 +749,7 @@ button {
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.05em;
+    pointer-events: none;
 }
 
 .indicador-linea {
@@ -749,7 +759,8 @@ button {
     position: relative;
     overflow: hidden;
     display: inline-block;
-    transition: box-shadow 0.25s ease;
+    transition: box-shadow 0.25s ease, height 0.2s ease;
+    pointer-events: none;
 }
 
 .indicador-progreso {
@@ -766,28 +777,27 @@ button {
     animation: progresoHero 7s linear forwards;
 }
 
-/* Pausar la barra de progreso mientras se mantiene el clic */
 .indicadores-editorial.en-pausa .indicador-item.activo .indicador-progreso {
     animation-play-state: paused !important;
 }
 
 .indicadores-editorial.en-pausa .indicador-item.activo .indicador-linea {
-    box-shadow: 0 0 10px rgba(255, 252, 249, 0.65);
+    box-shadow: 0 0 10px rgba(255, 252, 249, 0.85);
+    height: 2px;
 }
 
-/* Tooltip educativo al hacer 3 clics rápidos */
 .tooltip-pausa-hero {
     position: absolute;
     bottom: calc(100% + 14px);
     left: 50%;
     transform: translateX(-50%) translateY(6px);
-    display: inline-flex;
+    display: none;
     align-items: center;
     gap: 8px;
-    background: rgba(24, 26, 24, 0.94);
+    background: rgba(24, 26, 24, 0.96);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(196, 164, 130, 0.45);
+    border: 1px solid rgba(196, 164, 130, 0.5);
     color: var(--jasana-blanco-papel);
     padding: 7px 16px;
     border-radius: 999px;
@@ -795,14 +805,12 @@ button {
     font-weight: 500;
     letter-spacing: 0.03em;
     white-space: nowrap;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
     pointer-events: none;
     opacity: 0;
-    visibility: hidden;
     transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 40;
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 50;
 }
 
 .tooltip-pausa-hero::after {
@@ -812,67 +820,17 @@ button {
     left: 50%;
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-top-color: rgba(24, 26, 24, 0.94);
+    border-top-color: rgba(24, 26, 24, 0.96);
 }
 
 .tooltip-pausa-hero.visible {
     opacity: 1;
-    visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
 
 .tooltip-pausa-hero svg {
     color: var(--jasana-oro-claro);
     flex-shrink: 0;
-}
-
-/* Insignia visual cuando se mantiene presionado (Pausado) */
-.insignia-pausa-hero {
-    position: absolute;
-    bottom: calc(100% + 14px);
-    left: 50%;
-    transform: translateX(-50%) translateY(6px);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(40, 40, 39, 0.92);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 252, 249, 0.3);
-    color: var(--jasana-blanco-papel);
-    padding: 5px 14px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-    z-index: 40;
-}
-
-.icono-pausa-barras {
-    display: inline-flex;
-    gap: 3px;
-    height: 10px;
-    align-items: center;
-}
-
-.icono-pausa-barras span {
-    width: 2.5px;
-    height: 10px;
-    background-color: var(--jasana-oro-claro);
-    border-radius: 1px;
-}
-
-.indicadores-editorial.en-pausa .insignia-pausa-hero {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
 }
 
 @keyframes progresoHero {
@@ -901,15 +859,6 @@ button {
     }
 
     .tooltip-pausa-hero.visible {
-        transform: translateY(0);
-    }
-
-    .insignia-pausa-hero {
-        left: 0;
-        transform: translateY(6px);
-    }
-
-    .indicadores-editorial.en-pausa .insignia-pausa-hero {
         transform: translateY(0);
     }
 }
@@ -1314,7 +1263,7 @@ button {
     line-height: 1.25;
     color: var(--jasana-carbon);
     margin-bottom: 36px;
-    quotes: "“" "”";
+    quotes: "â€œ" "â€";
 }
 
 .pie-cita {
@@ -3070,9 +3019,6 @@ button {
 }
 
 
-/* ==========================================================================
-   MEJORAS DE CONTACTO & PIE DE PÁGINA (OCTUBRE/NOVIEMBRE 2026)
-   ========================================================================== */
 .pie-contenedor {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1.3fr auto;
@@ -3170,9 +3116,6 @@ button {
     width: 100%;
 }
 
-/* ==========================================================================
-   SECCIÓN DE CONTACTO FINAL / CTA FINAL
-   ========================================================================== */
 .cta-encabezado-bloque {
     text-align: center;
     max-width: 780px;
@@ -3308,9 +3251,6 @@ a.cta-canal-valor:hover {
     display: none;
 }
 
-/* ==========================================================================
-   BOTONES Y ACCIONES EN TARJETAS DE LÍNEAS (HOME)
-   ========================================================================== */
 .tarjeta-linea-acciones {
     margin-top: auto;
     display: flex;
@@ -3356,7 +3296,6 @@ a.cta-canal-valor:hover {
     width: 100%;
 }
 
-/* Sólido: Carbón refinado de JASANA */
 .boton-tarjeta--solido {
     background-color: var(--jasana-carbon);
     color: var(--jasana-blanco-papel) !important;
@@ -3371,7 +3310,6 @@ a.cta-canal-valor:hover {
     box-shadow: 0 4px 14px rgba(40, 40, 39, 0.16);
 }
 
-/* WhatsApp: Verde bosque / esmeralda de lujo */
 .boton-tarjeta--whatsapp {
     background-color: #1a7f4b;
     border: 1px solid #1a7f4b;
@@ -3390,7 +3328,6 @@ a.cta-canal-valor:hover {
     box-shadow: 0 4px 14px rgba(26, 127, 75, 0.28);
 }
 
-/* Borde: Sutil, equilibrado */
 .boton-tarjeta--borde {
     background-color: transparent;
     color: var(--jasana-carbon) !important;
@@ -3405,7 +3342,6 @@ a.cta-canal-valor:hover {
     box-shadow: 0 4px 14px rgba(40, 40, 39, 0.12);
 }
 
-/* Pie de tarjeta con separador sutil y enlace a la landing page */
 .tarjeta-linea-pie {
     display: flex;
     align-items: center;
@@ -3455,9 +3391,6 @@ a.cta-canal-valor:hover {
     }
 }
 
-/* ==========================================================================
-   LANDING PAGES DE LÍNEAS (SIGNATURE, ESSENTIALS, BATH & BED)
-   ========================================================================== */
 .principal-landing-linea {
     overflow-x: hidden;
 }
@@ -3599,9 +3532,6 @@ a.cta-canal-valor:hover {
     flex-wrap: wrap;
 }
 
-/* ==========================================================================
-   DESCRIPCIÓN EDITORIAL COMPLETA (PÁGINA DE LÍNEA)
-   ========================================================================== */
 .seccion--linea-editorial {
     background-color: var(--jasana-blanco-papel);
     padding: clamp(60px, 7vw, 100px) 0;
@@ -3697,9 +3627,6 @@ a.cta-canal-valor:hover {
     text-align: center;
 }
 
-/* ==========================================================================
-   ESPECIFICACIONES DE LÍNEAS
-   ========================================================================== */
 .seccion--linea-especificaciones {
     background-color: #FAF7F2;
     border-top: 1px solid rgba(200, 193, 186, 0.4);
@@ -3755,9 +3682,6 @@ a.cta-canal-valor:hover {
     color: rgba(40, 40, 39, 0.75);
 }
 
-/* ==========================================================================
-   BLOQUE CTA FINAL DE LÍNEA
-   ========================================================================== */
 .seccion--linea-cta {
     background-color: var(--jasana-blanco-papel);
     padding: clamp(60px, 7vw, 90px) 0;
@@ -3803,9 +3727,6 @@ a.cta-canal-valor:hover {
     margin-top: 12px;
 }
 
-/* ==========================================================================
-   RESPONSIVE PARA PIE, CONTACTO Y LANDINGS
-   ========================================================================== */
 @media (max-width: 1024px) {
     .cuadricula-especificaciones-landing {
         grid-template-columns: repeat(2, 1fr);
